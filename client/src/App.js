@@ -1,14 +1,12 @@
 import React from "react";
-import Books from "./pages/Books";
-import Detail from "./pages/Detail";
-import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
+import Schedule from "./components/Schedule";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../node_modules/font-awesome/css/font-awesome.css"
 
 function App() {
   return (
     <div>
-      <Nav />
-      <Books />
+      <Schedule/>
     </div>
   );
 }

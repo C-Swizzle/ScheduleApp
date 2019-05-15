@@ -1,12 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const studSchema = new Schema({
-  name: { type: String, required: true },
-  hoursPurchased:{type:Number},
-  hoursUsed:{type:Number}
+const studentSchema = new Schema({
+  firstName: {type:String, required:true},
+  lastName: {type: String, required:true},
+  permanentSchedule: [{dayInteger:Number, tutor: String, time: Array}],
+  creditPurchased: {type:Number},
+  creditUsed: {type:Number},
+  creditRemaining:{type:Number},
+  checkedInArray:[{date:Date,tutor:String,checkedIn:Boolean,noShow:Boolean}]
+
 });
 
-const Student = mongoose.model("Student", studSchema);
+const Student = mongoose.model("Student",studentSchema);
 
 module.exports = Student;

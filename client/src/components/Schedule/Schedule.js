@@ -2,12 +2,15 @@ import React, {Component} from "react";
 import ScheduleRow from "./ScheduleRow";
 import API from "../../utils/API";
 class Schedule extends Component {
+    // date = new Date();
     state={
         tutor:"Chris",
-        hasToday:[]
+        hasToday:[],
+        day: new Date()
     };
-
     componentDidMount = () => {
+    // console.log(this.dayInteger);
+
         API.getStudents().then(response=>{
             console.log(response);
             var date = new Date();
@@ -15,7 +18,13 @@ class Schedule extends Component {
             var hasToday = response.data.filter(obj => {
                 return obj.permanentSchedule[0].tutor===this.state.tutor;
             });
-            console.log(hasToday);
+            var hasToday2 = response.data.filter(obj => {
+                return obj.permanentSchedule.map(obj2=>{
+                    return (obj2.tutor===this.state.tutor&&obj2.dayInteger===this.state.day.getDate())
+                });
+            });
+
+            console.log(hasToday2);
             this.setState({
                 hasToday:hasToday
             })
@@ -47,11 +56,11 @@ class Schedule extends Component {
     })} */}
 
     {
-        this.state.hasToday.map(obj=>{
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time={obj.permanentSchedule[0].time[0]} />
-        })
+        // this.state.hasToday.map(obj=>{
+        //     return <ScheduleRow name={obj.firstName + " " + obj.lastName} time={obj.permanentSchedule[0].time[0]} />
+        // })
     }
-    {console.log(Date())}
+    {/* {console.log(Date())} */}
     
    
   </tbody>

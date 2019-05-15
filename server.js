@@ -31,7 +31,7 @@ app.get("/api/students",function(req,res){
 db.Student.create({
   firstName:"test",
   lastName:"user",
-  permanentSchedule:{dayInteger:1,tutor:"Chris",time:["1:30","2:00","3:00"]}
+  permanentSchedule:[{dayInteger:1,tutor:"Tyler",time:["1:30","2:00","3:00"]},{dayInteger:1,tutor:"Chris",time:["1:30","2:00","3:00"]}]
 })
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:

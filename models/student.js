@@ -8,7 +8,7 @@ const studentSchema = new Schema({
   creditPurchased: {type:Number},
   creditUsed: {type:Number},
   creditRemaining:{type:Number},
-  checkedInArray:[{date:Date,tutor:String,checkedIn:Boolean,noShow:Boolean}]
+  checkedInArray:[{date:Date,tutor:String,checkedIn:Boolean,noShow:Boolean, hoursUsed:Number}]
 
 });
 

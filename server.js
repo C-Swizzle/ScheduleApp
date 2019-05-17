@@ -24,15 +24,23 @@ app.get("/api/students",function(req,res){
   console.log("req received")
   db.Student.find()
   .then(response=>{
-    console.log(response);
+    // console.log(response);
     res.json(response);
   });
 })
-db.Student.create({
-  firstName:"test",
-  lastName:"user",
-  permanentSchedule:[{dayInteger:1,tutor:"Tyler",time:["1:30","2:00","3:00"]},{dayInteger:1,tutor:"Chris",time:["1:30","2:00","3:00"]}]
+
+app.post("/api/students/checkin/:id",function(req,res){
+  req.body.date = new Date();
+  db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:req.body}})
+  .then(function(response){
+    console.log("this has happened")
+  })
 })
+// db.Student.create({
+//   firstName:"test2",
+//   lastName:"use2r",
+//   permanentSchedule:[{dayInteger:4,tutor:"Tyler",time:["7:30","6:00","5:00"]},{dayInteger:4,tutor:"Chris",time:["1:30","2:00","3:00"]}]
+// })
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:
 //   {day:1,

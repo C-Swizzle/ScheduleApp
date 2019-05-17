@@ -138,85 +138,87 @@ class Schedule extends Component {
   </thead>
   <tbody>
    
-    {/* {this.state.oneThirty.map(obj=>{
+    {
+        /* {this.state.oneThirty.map(obj=>{
         return <ScheduleRow name={obj.name} time={obj.time} handleCheckIn={this.handleCheckIn} />
-    })} */}
+    })} */
+    }
 
     {
         this.state.oneThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="1:30" id={obj._id} />
         })
     }
     {
         this.state.twoClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="2:00" id={obj._id} />
         })
     }
         {
         this.state.twoThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="2:30" id={obj._id} />
         })
     }
     {
         this.state.threeClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="3:00" id={obj._id} />
         })
     }
     {
         this.state.threeThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="3:30" id={obj._id} />
         })
     }
     {
         this.state.fourClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="4:00" id={obj._id} />
         })
     }
     {
         this.state.fourThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="4:30" id={obj._id} />
         })
     }
     {
         this.state.fiveClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="5:00" id={obj._id} />
         })
     }
     {
         this.state.fiveThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="5:30" id={obj._id} />
         })
     }
     {
         this.state.sixClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="6:00" id={obj._id} />
         })
     }
     {
         this.state.sixThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="6:30" id={obj._id} />
         })
     }
     {
         this.state.sevenClock.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="7:00" id={obj._id} />
         })
     }
     {
         this.state.sevenThirty.map(obj=>{
-            const name =obj.firstName + " " + obj.lastName;
+            
             return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="7:30" id={obj._id} />
         })
     }

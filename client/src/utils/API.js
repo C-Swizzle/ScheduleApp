@@ -19,6 +19,6 @@ export default {
   },
 
   checkIn: function(id,obj){
-    return axios.post("/api/students/checkin/"+id,obj);
+    return axios.post("/api/students/checkin/"+id, obj);
   }
 };

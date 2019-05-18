@@ -34,68 +34,86 @@ class Schedule extends Component {
                         for (let k=0; k< response.data[i].permanentSchedule[j].time.length; k++){
                             var scheduleTime= response.data[i].permanentSchedule[j].time[k];
                             console.log(scheduleTime)
+                            var objToDo=response.data[i].permanentSchedule[j];
+                            objToDo.firstName=response.data[i].firstName;
+                            objToDo.lastName=response.data[i].lastName;
+                            objToDo.userId=response.data[i]._id;
+                            objToDo.checkedIn=false;
+                            var alreadyExists=false;
+                            for(let n=0;n<this.state.hasToday.length;n++){
+
+                                if (this.state.hasToday[n].userId===objToDo.userId){
+                                    alreadyExists=true;
+                                }
+                            }
+                           if(!alreadyExists){
+                            this.setState({
+                                hasToday:this.state.hasToday.concat([objToDo])
+                            })
+                           }
+                            
                             switch(scheduleTime) {
                                 case "1:30":
-                                this.state.oneThirty.push(response.data[i]);
+                                this.state.oneThirty.push(objToDo);
                                 break;
 
                                 case "2:00":
-                                this.state.twoClock.push(response.data[i]);
+                                this.state.twoClock.push(objToDo);
 
                                 break;
 
                                 case "2:30":
-                                this.state.twoThirty.push(response.data[i]);
+                                this.state.twoThirty.push(objToDo);
 
                                 break;
 
                                 case "3:00":
-                                this.state.threeClock.push(response.data[i]);
+                                this.state.threeClock.push(objToDo);
 
                                 break;
 
                                 case "3:30":
-                                this.state.threeThirty.push(response.data[i]);
+                                this.state.threeThirty.push(objToDo);
 
                                 break;
 
                                 case "4:00":
-                                this.state.fourClock.push(response.data[i]);
+                                this.state.fourClock.push(objToDo);
 
                                 break;
 
                                 case "4:30":
-                                this.state.fourThirty.push(response.data[i]);
+                                this.state.fourThirty.push(objToDo);
 
                                 break;
 
                                 case "5:00":
-                                this.state.fiveClock.push(response.data[i]);
+                                this.state.fiveClock.push(objToDo);
 
                                 break;
 
                                 case "5:30":
-                                this.state.fiveThirty.push(response.data[i]);
+                                this.state.fiveThirty.push(objToDo);
 
                                 break;
 
                                 case "6:00":
-                                this.state.sixClock.push(response.data[i]);
+                                this.state.sixClock.push(objToDo);
 
                                 break;
 
                                 case "6:30":
-                                this.state.sixThirty.push(response.data[i]);
+                                this.state.sixThirty.push(objToDo);
 
                                 break;
 
                                 case "7:00":
-                                this.state.sevenClock.push(response.data[i]);
+                                this.state.sevenClock.push(objToDo);
 
                                 break;
 
                                 case "7:30":
-                                this.state.sevenThirty.push(response.data[i]);
+                                this.state.sevenThirty.push(objToDo);
 
                                 break;
 
@@ -110,17 +128,27 @@ class Schedule extends Component {
             }
             console.log(hasToday3);
             console.log(this.state)
-            this.setState({
-                hasToday:hasToday3
-            })
+            // this.setState({
+            //     hasToday:hasToday3
+            // })
         }
         )
     }
 
     
 
-    handleCheckIn = event => {
-        console.log(event.target)
+    handleCheckIn = (id,objToSend) => {
+        console.log(id);
+        console.log(objToSend);
+        var objToMake = {
+            sessionHours: objToSend.sessionHours,
+            tutor: objToSend.tutor,
+            date: new Date(),
+            checkedIn: true,
+            noShow: false
+        };
+        API.checkIn(id,objToMake);
+        // for (i=0;i<this.state.)
     }
 
     render() {
@@ -147,79 +175,79 @@ class Schedule extends Component {
     {
         this.state.oneThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="1:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="1:30" id={obj.userId} />
         })
     }
     {
         this.state.twoClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="2:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="2:00" id={obj.userId} />
         })
     }
         {
         this.state.twoThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="2:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="2:30" id={obj.userId} />
         })
     }
     {
         this.state.threeClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="3:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="3:00" id={obj.userId} />
         })
     }
     {
         this.state.threeThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="3:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="3:30" id={obj.userId} />
         })
     }
     {
         this.state.fourClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="4:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="4:00" id={obj.userId} />
         })
     }
     {
         this.state.fourThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="4:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="4:30" id={obj.userId} />
         })
     }
     {
         this.state.fiveClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="5:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="5:00" id={obj.userId} />
         })
     }
     {
         this.state.fiveThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="5:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="5:30" id={obj.userId} />
         })
     }
     {
         this.state.sixClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="6:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="6:00" id={obj.userId} />
         })
     }
     {
         this.state.sixThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="6:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="6:30" id={obj.userId} />
         })
     }
     {
         this.state.sevenClock.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="7:00" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="7:00" id={obj.userId} />
         })
     }
     {
         this.state.sevenThirty.map(obj=>{
             
-            return <ScheduleRow name={obj.firstName + " " + obj.lastName} time="7:30" id={obj._id} />
+            return <ScheduleRow name={obj.firstName + " " + obj.lastName} handleCheckIn={()=> {this.handleCheckIn(obj.userId,obj)}} time="7:30" id={obj.userId} />
         })
     }
     

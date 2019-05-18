@@ -33,13 +33,14 @@ app.post("/api/students/checkin/:id",function(req,res){
   req.body.date = new Date();
   db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:req.body}})
   .then(function(response){
-    console.log("this has happened")
+    console.log("this has happened");
+    res.status(200);
   })
 })
 // db.Student.create({
 //   firstName:"test2",
 //   lastName:"use2r",
-//   permanentSchedule:[{dayInteger:4,tutor:"Tyler",time:["7:30","6:00","5:00"]},{dayInteger:4,tutor:"Chris",time:["1:30","2:00","3:00"]}]
+//   permanentSchedule:[{dayInteger:6,tutor:"Tyler",time:["7:30","6:00","5:00"],sessionHours:1.5},{dayInteger:4,tutor:"Chris",time:["1:30","2:00","3:00"],sessionHours:1.5}]
 // })
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:

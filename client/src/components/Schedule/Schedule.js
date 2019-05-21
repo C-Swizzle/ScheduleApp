@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import ScheduleRow from "./ScheduleRow";
 import API from "../../utils/API";
+import moment from "moment";
 class Schedule extends Component {
     // date = new Date();
     state={
         tutor:"Tyler",
+        timenow:moment().format('LLLL'),
         hasToday:[],
         day: new Date(),
         oneThirty:[],
@@ -23,7 +25,7 @@ class Schedule extends Component {
     };
     componentDidMount = () => {
     // console.log(this.dayInteger);
-
+        console.log(`Now: ${moment().format('l')}`)
         API.getStudents().then(response=>{
             console.log(response);
             const hasToday3=[];
@@ -153,11 +155,14 @@ class Schedule extends Component {
 
     render() {
         // var oneThirtyStudOne=this.state.oneThirty.studOne;
+        setInterval(()=>{ this.setState({
+            timenow: moment().format("LLLL")
+        }) }, 1000);
         return(
 <div className="container">
 <div className="jumbotron">
 <h1 className="display-4 text-center">
-{this.state.day.toDateString()}
+{this.state.timenow}
 </h1>
 </div>
 <table className="table table-bordered table-hover">

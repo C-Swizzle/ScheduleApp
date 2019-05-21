@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const booksController = require("../../controllers/booksController");
-
+const studController = require("../../controllers/studController");
+const mongoose = require("mongoose");
+const db = require("../../models");
 // // Matches with "/api/books"
 // router.route("/")
 //   .get(booksController.findAll)
@@ -12,5 +13,12 @@ const booksController = require("../../controllers/booksController");
 //   .get(booksController.findById)
 //   .put(booksController.update)
 //   .delete(booksController.remove);
+db.Student.create({
+    name:"chris"
+}).then(function(response){
+    console.log('anything')
+    console.log(response)
+})
+
 
 module.exports = router;

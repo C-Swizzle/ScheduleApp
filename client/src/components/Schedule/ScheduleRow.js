@@ -5,7 +5,7 @@ function ScheduleRow(props){
         
         <tr className={`table-${props.tableType||"default"}`}>
       <th scope="row">{props.time}</th>
-      <td>{props.name}</td>
+      <td>{props.name} {props.id}</td>
        <td>
        <button className="btn btn-success show-up" onClick={props.handleCheckIn} >
     <i className="fas fa-check"></i>

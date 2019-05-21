@@ -155,6 +155,11 @@ class Schedule extends Component {
         // var oneThirtyStudOne=this.state.oneThirty.studOne;
         return(
 <div className="container">
+<div className="jumbotron">
+<h1 className="display-4 text-center">
+{this.state.day.toDateString()}
+</h1>
+</div>
 <table className="table table-bordered table-hover">
   <thead>
     <tr>

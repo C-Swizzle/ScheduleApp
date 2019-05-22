@@ -20,5 +20,14 @@ export default {
 
   checkIn: function(id,obj){
     return axios.post("/api/students/checkin/"+id, obj);
+  },
+  getTutors: function(){
+    return axios.get("/api/tutors");
+  },
+  newTutor: function(tutorObj){
+    return axios.post("/api/tutors",tutorObj);
+  },
+  getOneTutor: function(id){
+    return axios.get("/schedule/tutors/"+id);
   }
 };

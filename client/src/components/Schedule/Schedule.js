@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import ScheduleRow from "./ScheduleRow";
 import API from "../../utils/API";
+import moment from "moment";
 class Schedule extends Component {
     // date = new Date();
     state={
-        tutor:"Tyler",
+        tutor:this.props.tutor,
+        timenow:moment().format('LLLL'),
         hasToday:[],
-        day: new Date(),
+        dayInteger: this.props.dayInteger || 2,
         oneThirty:[],
         twoClock:[],
         twoThirty:[],
@@ -23,14 +25,16 @@ class Schedule extends Component {
     };
     componentDidMount = () => {
     // console.log(this.dayInteger);
-
+        console.log(`Now: ${moment().format('l')}`)
         API.getStudents().then(response=>{
             console.log(response);
             const hasToday3=[];
 
             for (let i=0; i<response.data.length; i++){
+                console.log(response.data[i])
                 for (let j=0;j<response.data[i].permanentSchedule.length;j++){
-                    if (response.data[i].permanentSchedule[j].tutor===this.state.tutor && response.data[i].permanentSchedule[j].dayInteger===this.state.day.getDay()){
+                    console.log(response.data[i].permanentSchedule[j].tutor)
+                    if (response.data[i].permanentSchedule[j].tutorName===this.state.tutor && response.data[i].permanentSchedule[j].dayInteger===Number(this.state.dayInteger)){
                         for (let k=0; k< response.data[i].permanentSchedule[j].time.length; k++){
                             var scheduleTime= response.data[i].permanentSchedule[j].time[k];
                             console.log(scheduleTime)
@@ -153,8 +157,17 @@ class Schedule extends Component {
 
     render() {
         // var oneThirtyStudOne=this.state.oneThirty.studOne;
+        setInterval(()=>{ this.setState({
+            timenow: moment().format("LLLL")
+        }) }, 1000);
         return(
 <div className="container">
+<div className="jumbotron">
+<h1 className="display-4 text-center">
+{this.state.timenow}<br></br>
+{this.state.tutor}
+</h1>
+</div>
 <table className="table table-bordered table-hover">
   <thead>
     <tr>

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const studentSchema = new Schema({
   firstName: {type:String, required:true},
   lastName: {type: String, required:true},
-  permanentSchedule: [{dayInteger:Number, tutor: String, time: Array, sessionHours:Number}],
+  permanentSchedule: [{dayInteger:Number, tutorName: String, tutorId:String, time: Array, sessionHours:Number}],
   creditPurchased: {type:Number},
   creditUsed: {type:Number},
   creditRemaining:{type:Number},

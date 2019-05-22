@@ -36,11 +36,27 @@ app.post("/api/students/checkin/:id",function(req,res){
     console.log("this has happened");
     res.status(200);
   })
+});
+
+app.post("/api/tutors",function(req,res){
+db.Tutor.create(req.body).then(function(response){console.log(response)})
+});
+app.get("/api/tutors",function(req,res){
+  db.Tutor.find().then(function(response){
+    res.json(response);
+  })
+});
+
+app.get("/schedule/tutors/:id",function(req,res){
+  db.Tutor.findOne({_id:req.params.id})
+  .then(function(response){
+    res.json(response);
+  })
 })
 // db.Student.create({
 //   firstName:"test2",
 //   lastName:"use2r",
-//   permanentSchedule:[{dayInteger:6,tutor:"Tyler",time:["7:30","6:00","5:00"],sessionHours:1.5},{dayInteger:4,tutor:"Chris",time:["1:30","2:00","3:00"],sessionHours:1.5}]
+//   permanentSchedule:[{dayInteger:2,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["7:30","6:00","5:00"],sessionHours:1.5}]
 // })
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:

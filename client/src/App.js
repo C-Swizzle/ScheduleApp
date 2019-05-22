@@ -5,6 +5,8 @@ import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Schedule from "./components/Schedule/Schedule"
+import ScheduleEditor from "./components/Schedule/ScheduleEditor"
+import PermSchedule from "./components/Schedule/PermSchedule";
 
 function App() {
   return (
@@ -13,8 +15,10 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Schedule} />
-          <Route exact path="/books" component={Books} />
-          <Route exact path="/books/:id" component={Detail} />
+          {/* <Route exact path="/books" component={Books} />
+          <Route exact path="/books/:id" component={Detail} /> */}
+          <Route exact path="/editschedule" component={ScheduleEditor} />
+          <Route exact path="/permschedule" component={PermSchedule} />
 
           <Route component={NoMatch} />
         </Switch>

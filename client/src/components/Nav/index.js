@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 function Nav() {
   return (
@@ -7,6 +8,7 @@ function Nav() {
         Rocklin Tutoring Team Schedule App
       </a>
       <a className="navbar-text text-dark" href="/editschedule">Edit Schedule</a>
+      {moment().format("lll")}
     </nav>
   );
 }

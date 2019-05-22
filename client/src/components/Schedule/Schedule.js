@@ -22,6 +22,8 @@ class Schedule extends Component {
         sixThirty:[],
         sevenClock:[],
         sevenThirty:[],
+daysOfWeek:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+
     };
     componentDidMount = () => {
     // console.log(this.dayInteger);
@@ -164,7 +166,7 @@ class Schedule extends Component {
 <div className="container">
 <div className="jumbotron">
 <h1 className="display-4 text-center">
-{this.state.timenow}<br></br>
+{this.state.daysOfWeek[Number(this.state.dayInteger)]}<br></br>
 {this.state.tutor}
 </h1>
 </div>

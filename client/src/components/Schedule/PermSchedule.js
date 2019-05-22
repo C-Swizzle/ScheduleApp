@@ -61,12 +61,30 @@ return(<a href="" onClick={(e)=>{e.preventDefault(); this.handleOnClick(obj._id)
 </div>
 <div className="row">
 <div className="col-md-6">{this.state.tutorSelected ?
+<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="1" /> 
+: ""
+
+}</div>
+<div className="col-md-6">{this.state.tutorSelected ?
 <Schedule tutor={this.state.tutorSelected.firstName} dayInteger="2" /> 
 : ""
 
 }</div>
-<div className="col-md-6"></div>
+<div className="col-md-6">{this.state.tutorSelected ?
+<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="3" /> 
+: ""
 
+}</div>
+<div className="col-md-6">{this.state.tutorSelected ?
+<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="4" /> 
+: ""
+
+}</div>
+<div className="col-md-6">{this.state.tutorSelected ?
+<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="5" /> 
+: ""
+
+}</div>
 </div>
 </>)
 

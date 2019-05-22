@@ -70,6 +70,11 @@ app.get("/schedule/tutors/:id",function(req,res){
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scheduleapp",{useNewUrlParser:true});
 
 // Start the API server
+
+app.post("/api/newstudent",function(req,res){
+  db.Student.create(req.body).then(resp=>res.json(resp))
+})
+
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

@@ -32,5 +32,8 @@ export default {
   },
   newStudent: function(studObj){
     return axios.post("/api/students",studObj)
+  },
+  getOneStudent: function(studObj){
+    return axios.post("/api/search/students",studObj)
   }
 };

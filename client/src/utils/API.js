@@ -29,5 +29,8 @@ export default {
   },
   getOneTutor: function(id){
     return axios.get("/schedule/tutors/"+id);
+  },
+  newStudent: function(studObj){
+    return axios.post("/api/students",studObj)
   }
 };

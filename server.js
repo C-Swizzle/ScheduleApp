@@ -18,6 +18,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.post("/api/students",function(req,res){
   console.log(req.body);
+  db.Student.create(req.body).then(resp=>res.json(resp))
 });
 
 app.get("/api/students",function(req,res){
@@ -27,6 +28,13 @@ app.get("/api/students",function(req,res){
     // console.log(response);
     res.json(response);
   });
+});
+
+app.post("/api/search/students",function(req,res){
+  db.Student.find(req.body)
+  .then(response=>{
+    res.json(response);
+  })
 })
 
 app.post("/api/students/checkin/:id",function(req,res){
@@ -39,7 +47,7 @@ app.post("/api/students/checkin/:id",function(req,res){
 });
 
 app.post("/api/tutors",function(req,res){
-db.Tutor.create(req.body).then(function(response){console.log(response)})
+db.Tutor.create(req.body).then(function(response){console.log(response); res.json(response)})
 });
 app.get("/api/tutors",function(req,res){
   db.Tutor.find().then(function(response){
@@ -52,12 +60,17 @@ app.get("/schedule/tutors/:id",function(req,res){
   .then(function(response){
     res.json(response);
   })
-})
-db.Student.create({
-  firstName:"test2",
-  lastName:"use2r",
-  permanentSchedule:[{dayInteger:2,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["7:30","6:00","5:00"],sessionHours:1.5}]
-})
+});
+
+
+// db.Student.create({
+//   firstName:"something",
+//   lastName:"name",
+//   permanentSchedule:[{dayInteger:2,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["7:30","6:00","5:00"],sessionHours:1.5},
+//   {dayInteger:1,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["1:30","2:00","2:30"],sessionHours:1.5},
+//   {dayInteger:3,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["2:00","6:00","5:00"],sessionHours:1.5},
+// ]
+// })
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:
 //   {day:1,

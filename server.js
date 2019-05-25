@@ -61,7 +61,24 @@ app.get("/schedule/tutors/:id",function(req,res){
     res.json(response);
   })
 });
-
+app.delete("/api/students/schedule/:studentId/:scheduleId",function(req,res){
+  db.Student.findOne({_id:req.params.studentId})
+  .then(function(response){
+    // console.log(response)
+    var schedArr=response.permanentSchedule;
+    for (let i=0;i<schedArr.length;i++){
+      console.log(schedArr[i]._id)
+      console.log("check: "+req.params.scheduleId)
+      console.log(schedArr[i]._id.toString()===req.params.scheduleId)
+      if(schedArr[i]._id.toString()===req.params.scheduleId){
+        console.log(schedArr[i])
+      }
+    }
+    // console.log(response)
+    // console.log(req.params.scheduleId)
+    res.json(response);
+  })
+})
 
 // db.Student.create({
 //   firstName:"something",

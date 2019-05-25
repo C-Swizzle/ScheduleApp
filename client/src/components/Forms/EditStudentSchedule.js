@@ -59,6 +59,13 @@ class EditStudentSchedule extends React.Component {
                 })
             })
     }
+    handleDeleteOfTime = (studentId,scheduleId) => {
+        // console.log(id)
+        API.deleteOneTimeSlot(studentId,scheduleId)
+        .then(response=>{
+            console.log(response);
+        })
+    }
 
     render() {
 
@@ -101,16 +108,17 @@ class EditStudentSchedule extends React.Component {
                                                     <th scope="col">Tutor Name</th>
                                                     <th scope="col">Day</th>
                                                     <th scope="col">Student Name</th>
+                                                    <th scope="col">Remove?</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {this.state.studentSelectedForChange.permanentSchedule.map(object => {
                                                     return (
-                                                        object.time.map(obj=>{
+                                                        object.time.map(TimesArr=>{
                                                             return(<tr>
                                                                 <td>
-                                                                {obj}
+                                                                {TimesArr}
                                                                 </td>
                                                                 <td>
                                                                 {object.tutorName}
@@ -120,6 +128,9 @@ class EditStudentSchedule extends React.Component {
                                                                 </td>
                                                                 <td>
                                                                 {this.state.studentSelectedForChange.firstName} {this.state.studentSelectedForChange.lastName} 
+                                                                </td>
+                                                                <td>
+                                                                    <button className="btn btn-danger" onClick={()=>this.handleDeleteOfTime(this.state.studentSelectedForChange._id,object._id)}>Delete</button>
                                                                 </td>
                                                             </tr>)
                                                         })

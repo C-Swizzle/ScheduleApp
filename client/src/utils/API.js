@@ -35,5 +35,8 @@ export default {
   },
   getOneStudent: function(studObj){
     return axios.post("/api/search/students",studObj)
+  },
+  deleteOneTimeSlot:function(studentId,scheduleId){
+    return axios.delete("/api/students/schedule/"+studentId+"/"+scheduleId)
   }
 };

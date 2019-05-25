@@ -53,11 +53,11 @@ app.get("/schedule/tutors/:id",function(req,res){
     res.json(response);
   })
 })
-// db.Student.create({
-//   firstName:"test2",
-//   lastName:"use2r",
-//   permanentSchedule:[{dayInteger:2,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["7:30","6:00","5:00"],sessionHours:1.5}]
-// })
+db.Student.create({
+  firstName:"test2",
+  lastName:"use2r",
+  permanentSchedule:[{dayInteger:2,tutorName:"Tyler",tutorId:"5ce4abfefab5493534075f70" ,time:["7:30","6:00","5:00"],sessionHours:1.5}]
+})
 
 // db.Student.findOneAndUpdate({name:"chris",creditPurchased:999},{ $push:{ permanentSchedule:
 //   {day:1,

@@ -64,7 +64,7 @@ class EditStudentSchedule extends React.Component {
 
         return (
             <div className="container">
-                <div className="display-4">Edit {this.state.studentSelectedForChange ? <> {this.state.studentSelectedForChange.firstName} {this.state.studentSelectedForChange.lastName}\\'s </> :<>a Student's</>} Schedule</div>
+                <div className="display-4">Edit {this.state.studentSelectedForChange ? <> {this.state.studentSelectedForChange.firstName} {this.state.studentSelectedForChange.lastName}'s </> :<>a Student's</>} Schedule</div>
                 {this.state.studentSelectedForChange ? "" :
                 <form>
                     <div className="form-group">
@@ -106,17 +106,24 @@ class EditStudentSchedule extends React.Component {
                                             </thead>
                                             <tbody>
                                                 {this.state.studentSelectedForChange.permanentSchedule.map(object => {
-                                                    return (<tr>
-                                                        <td>
-                                                        {object.time[0]}
-                                                        </td>
-                                                        <td>
-                                                        {object.tutorName}
-                                                        </td>
-                                                        <td>
-                                                        {this.state.studentSelectedForChange.firstName} {this.state.studentSelectedForChange.lastName} 
-                                                        </td>
-                                                    </tr>
+                                                    return (
+                                                        object.time.map(obj=>{
+                                                            return(<tr>
+                                                                <td>
+                                                                {obj}
+                                                                </td>
+                                                                <td>
+                                                                {object.tutorName}
+                                                                </td>
+                                                                <td>
+                                                                {this.state.daysOfWeek[Number(object.dayInteger)]}
+                                                                </td>
+                                                                <td>
+                                                                {this.state.studentSelectedForChange.firstName} {this.state.studentSelectedForChange.lastName} 
+                                                                </td>
+                                                            </tr>)
+                                                        })
+                                                    
 
                                                     )
                                                 })}

@@ -5,6 +5,7 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
+const mongodb=require("mongodb");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -47,6 +48,7 @@ app.post("/api/students/checkin/:id",function(req,res){
 });
 
 app.post("/api/tutors",function(req,res){
+  
 db.Tutor.create(req.body).then(function(response){console.log(response); res.json(response)})
 });
 app.get("/api/tutors",function(req,res){
@@ -54,7 +56,35 @@ app.get("/api/tutors",function(req,res){
     res.json(response);
   })
 });
+function createOneDay(){
+db.scheduleDay.create({
+  oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+}).then(function(response){
+  db.scheduleObj.create({
+    Sunday:response._id
+  }).then(function(response){
+    console.log(response)
+  })
+})
+}
+// createOneDay()
 
+db.scheduleObj.find()
+.populate("scheduleDay")
+.then(function(response){
+  console.log(response)
+})
 app.get("/schedule/tutors/:id",function(req,res){
   db.Tutor.findOne({_id:req.params.id})
   .then(function(response){
@@ -79,6 +109,105 @@ app.delete("/api/students/schedule/:studentId/:scheduleId",function(req,res){
     res.json(response);
   })
 })
+var tutorObj={
+  firstName:"test",
+  lastName:"annoying",
+  permanentSchedule:
+    {Sunday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Monday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Tuesday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Wednesday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Thursday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Friday:{oneThirty:[],
+twoClock:[],
+twoThirty:[],
+threeClock:[],
+threeThirty:[],
+fourClock:[],
+fourThirty:[],
+fiveClock:[],
+fiveThirty:[],
+sixClock:[],
+sixThirty:[],
+sevenClock:[],
+sevenThirty:[],},
+    Saturday:{oneThirty:[],
+      twoClock:[],
+      twoThirty:[],
+      threeClock:[],
+      threeThirty:[],
+      fourClock:[],
+      fourThirty:[],
+      fiveClock:[],
+      fiveThirty:[],
+      sixClock:[],
+      sixThirty:[],
+      sevenClock:[],
+      sevenThirty:[],
+    }
+  }
+  
+}
 
 // db.Student.create({
 //   firstName:"something",
@@ -97,6 +226,8 @@ app.delete("/api/students/schedule/:studentId/:scheduleId",function(req,res){
 // }
 // }).then(response => console.log(response));
 // Connect to the Mongo DB
+
+
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scheduleapp",{useNewUrlParser:true});
 
 // Start the API server

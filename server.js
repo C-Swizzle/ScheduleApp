@@ -59,9 +59,9 @@ app.get("/api/tutors",function(req,res){
 function createOneDay(){
 db.scheduleDay.create({
   oneThirty:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
+twoClock:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
+twoThirty:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
+threeClock:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
 threeThirty:[],
 fourClock:[],
 fourThirty:[],
@@ -81,11 +81,21 @@ sevenClock:[],
 // createOneDay()
 
 db.scheduleObj.find()
-.populate({path:"Sunday",model:"scheduleDay"})
-// .populate("student")
-.exec((err,posts)=>{
-  console.log(posts)
+.populate({path:"Sunday",model:"scheduleDay",
+  populate:{path:"twoClock oneThirty",model:"Student"},
+  // populate:{path:"oneThirty",model:"Student"}
+
 })
+.exec((err,posts)=>{
+  const length=posts.length
+  console.log(posts[1].Sunday.oneThirty)
+})
+// db.scheduleDay.find()
+// .populate({path:"oneThirty",model:"Student"})
+// .exec((err,posts)=>{
+//   const length=posts.length
+//   console.log(posts[length-1].oneThirty)
+// })
 // db.scheduleDay.find()
 // .then(function(response){
 //   console.log(response)

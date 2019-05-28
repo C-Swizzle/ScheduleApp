@@ -6,55 +6,55 @@ var Schema = mongoose.Schema;
 var scheduleDaySchema= new Schema({
 oneThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 twoClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 twoThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 threeClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 threeThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 fourClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 fourThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 fiveClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 fiveThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 sixClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 sixThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 sevenClock:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 sevenThirty:[{
     type: Schema.Types.ObjectId,
-    ref: "student"
+    ref: "Student"
   }],
 
 });

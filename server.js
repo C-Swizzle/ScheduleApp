@@ -71,17 +71,18 @@ sixClock:[],
 sixThirty:[],
 sevenClock:[],
 }).then(function(response){
-  db.scheduleObj.create({
-    Sunday:mongodb.ObjectId(response._id)
-  }).then(function(response){
+  db.scheduleObj.findOneAndUpdate(
+    { _id:mongodb.ObjectId("5cec9f3f4cdee12890314b0f")}
+  ,{Sunday:response._id}).then(function(response){
     console.log(response)
   })
 })
 }
-createOneDay()
+// createOneDay()
 
 db.scheduleObj.find()
-.populate("scheduleDay")
+.populate({path:"Sunday",model:"scheduleDay"})
+// .populate("student")
 .exec((err,posts)=>{
   console.log(posts)
 })

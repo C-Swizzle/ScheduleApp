@@ -58,7 +58,7 @@ app.get("/api/tutors",function(req,res){
 });
 function createOneDay(){
 db.scheduleDay.create({
-  oneThirty:[],
+  oneThirty:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
 twoClock:[],
 twoThirty:[],
 threeClock:[],
@@ -72,19 +72,23 @@ sixThirty:[],
 sevenClock:[],
 }).then(function(response){
   db.scheduleObj.create({
-    Sunday:response._id
+    Sunday:mongodb.ObjectId(response._id)
   }).then(function(response){
     console.log(response)
   })
 })
 }
-// createOneDay()
+createOneDay()
 
 db.scheduleObj.find()
 .populate("scheduleDay")
-.then(function(response){
-  console.log(response)
+.exec((err,posts)=>{
+  console.log(posts)
 })
+// db.scheduleDay.find()
+// .then(function(response){
+//   console.log(response)
+// })
 app.get("/schedule/tutors/:id",function(req,res){
   db.Tutor.findOne({_id:req.params.id})
   .then(function(response){

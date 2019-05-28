@@ -6,30 +6,30 @@ const scheduleObjSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "scheduleDay"
   },
-  Monday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  },
-  Tuesday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  },
-  Wednesday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  },
-  Thursday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  },
-  Friday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  },
-  Saturday:{
-    type: Schema.Types.ObjectId,
-    ref: "scheduleDay"
-  }
+  // Monday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // },
+  // Tuesday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // },
+  // Wednesday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // },
+  // Thursday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // },
+  // Friday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // },
+  // Saturday:{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "scheduleDay"
+  // }
 
 });
 

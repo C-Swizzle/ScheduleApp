@@ -44,5 +44,16 @@ export default {
   },
   getFullDay:function(tutorId,dayString){
     return axios.get(`/api/tutors/schedule/${tutorId}/${dayString}`)
+  },
+  getScheduleDayId:function(tutorId,dayString){
+    return axios.get(`/api/tutors/justtheidplease/schedule/${tutorId}/${dayString}`)
+  },
+  newScheduleSlot: function(scheduleId,studentId,timeString){
+    const objToSend={
+      scheduleDayId:scheduleId,
+      studentId:studentId,
+      timeString:timeString
+    }
+    return axios.post(`/api/tutors/addtoschedule`,objToSend)
   }
 };

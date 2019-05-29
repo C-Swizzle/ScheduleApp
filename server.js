@@ -124,21 +124,21 @@ permSchedule:schedId
 // createScheduleObj()
 // createTutorObj("cee222","mack222")
 // createOneDay()
-app.post("/",function(req,res){
+// app.post("/",function(req,res){
 
-  db.scheduleObj.find()
-  .populate({path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",model:"scheduleDay",
-    populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty",model:"Student"},
-    // populate:{path:"oneThirty",model:"Student"}
+//   db.scheduleObj.find()
+//   .populate({path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",model:"scheduleDay",
+//     populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty",model:"Student"},
+//     // populate:{path:"oneThirty",model:"Student"}
   
-  })
-  .exec((err,posts)=>{
-    const length=posts.length
-    console.log(posts)
-    res.json(posts)
-  })
+//   })
+//   .exec((err,posts)=>{
+//     const length=posts.length
+//     console.log(posts)
+//     res.json(posts)
+//   })
 
-});
+// });
 app.post("/test",function(req,res){
   db.Tutor.find()
   .populate({path:"permSchedule",populate:{path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
@@ -162,7 +162,10 @@ app.get("/api/tutors/schedule/:tutorId/:day/:timeslot",function(req,res){
 db.Tutor.findOne({_id:req.params.tutorId})
 .populate({path:"permSchedule",populate:{path:req.params.day,populate:{path:req.params.timeslot}}})
 .then(function(response){
-  res.json(response.permSchedule[req.params.day][req.params.timeslot])
+  const arrToRespondWith=response.permSchedule[req.params.day][req.params.timeslot];
+  // arrToRespondWith.scheduleDayId=response.permSchedule[req.params.day]._id;
+  // console.log(arrToRespondWith)
+  res.json(arrToRespondWith)
 })
 })
 // db.scheduleDay.find()
@@ -175,6 +178,15 @@ db.Tutor.findOne({_id:req.params.tutorId})
 // .then(function(response){
 //   console.log(response)
 // })
+app.get("/api/tutors/justtheidplease/schedule/:tutorId/:day",function(req,res){
+
+  db.Tutor.findOne({_id:req.params.tutorId})
+.populate({path:"permSchedule",populate:{path:req.params.day}})
+.then(function(response){
+console.log(response[req.params.day.toString()])
+res.json(response.permSchedule[req.params.day]._id)
+})
+})
 app.get("/schedule/tutors/:id",function(req,res){
   db.Tutor.findOne({_id:req.params.id})
   .then(function(response){
@@ -199,7 +211,12 @@ app.delete("/api/students/schedule/:studentId/:scheduleId",function(req,res){
     res.json(response);
   })
 })
-
+app.post("/api/tutors/addtoschedule",function(req,res){
+  db.scheduleDay.findOneAndUpdate({_id:req.body.scheduleDayId},{$push:{[req.body.timeString]:req.body.studentId}})
+  .then(function(response){
+    res.json(response)
+  })
+})
 
 // db.Student.create({
 //   firstName:"something",

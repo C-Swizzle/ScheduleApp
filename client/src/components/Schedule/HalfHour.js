@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import API from "../../utils/API";
 import OneEmptySlot from "./OneEmptySlot";
+import OneFilledSlotMap from "./OneFilledSlotMap";
 class HalfHour extends Component{
 state={
 timeArr:null,
@@ -44,38 +45,21 @@ render(){
 
                     {this.state.timeArr.length > 3 ?
                         <>
-                            {this.state.timeArr.map(obj => {
-                                return (<tr className="table-danger">
-                                    <td>{this.state.timeNow}</td>
-                                    <td>{obj.firstName} {obj.lastName}</td>
-                                </tr>)
-                            })}
+                            <OneFilledSlotMap tableType="danger" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
                         </> : ""}
                     {this.state.timeArr.length === 3 ? <>
-                        {this.state.timeArr.map(obj => {
-                            return (<tr className="table-light">
-                                <td>{this.state.timeNow}</td>
-                                <td>{obj.firstName} {obj.lastName}</td>
-                            </tr>)
-                        })}
+                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+
                     </> : ""}
                     {this.state.timeArr.length === 2 ? <>
-                        {this.state.timeArr.map(obj => {
-                            return (<tr className="table-light">
-                                <td>{this.state.timeNow}</td>
-                                <td>{obj.firstName} {obj.lastName}</td>
-                            </tr>)
-                        })}
+                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+
                         <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                     </> : ""}
 
                     {this.state.timeArr.length === 1 ? <>
-                        {this.state.timeArr.map(obj => {
-                            return (<tr className="table-light">
-                                <td>{this.state.timeNow}</td>
-                                <td>{obj.firstName} {obj.lastName}</td>
-                            </tr>)
-                        })}
+                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+
                         <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
                         <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>

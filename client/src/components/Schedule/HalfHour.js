@@ -2,30 +2,41 @@ import React, {Component} from "react";
 import API from "../../utils/API";
 class HalfHour extends Component{
 state={
-timeArr:null
+timeArr:null,
+relationalObject:{
+    oneThirty:"1:30",
+    twoClock:"2:00",
+    twoThirty:"2:30",
+    threeClock:"3:00",
+    threeThirty:"3:30",
+    fourClock:"4:00",
+    fourThirty:"4:30",
+    fiveClock:"5:00",
+    fiveThirty:"5:30",
+    sixClock:"6:00",
+    sixThirty:"6:30",
+    sevenClock:"7:00",
+    sevenThirty:"7:30"
+},
+timeNow:null
 }
 
 componentDidMount=()=>{
-API.getHalfHourSlot("5cedea5d4869e4199c4759cf","Tuesday","twoClock")
+API.getHalfHourSlot(this.props.tutorId||"5cedea5d4869e4199c4759cf",this.props.dayString||"Tuesday",this.props.timeString||"twoClock")
 .then(response=>{
+const myTime=this.props.timeString;
+const myTimeToSend=this.state.relationalObject[myTime]
     this.setState({
-        timeArr:response.data
+        timeArr:response.data,
+        timeNow:myTimeToSend
     })
-})
+});
+
 }
 render(){
     return(
         <>
-        <div className="container">
-        <table className="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Time</th>
-      <th scope="col">Name</th>
-      <th scope="col">Showed up?</th>
-    </tr>
-  </thead>
-                    <tbody>
+        
         {this.state.timeArr ?
         <>
 
@@ -33,7 +44,7 @@ render(){
         <>
         {this.state.timeArr.map(obj=>{
             return(<tr className="table-danger">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>{obj.firstName} {obj.lastName}</td>
             </tr>)
         })}
@@ -41,7 +52,7 @@ render(){
         {this.state.timeArr.length===3 ?<>
         {this.state.timeArr.map(obj=>{
             return(<tr className="table-light">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>{obj.firstName} {obj.lastName}</td>
             </tr>)
         })}
@@ -49,12 +60,12 @@ render(){
         {this.state.timeArr.length===2 ?<>
         {this.state.timeArr.map(obj=>{
             return(<tr className="table-light">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>{obj.firstName} {obj.lastName}</td>
             </tr>)
         })}
         <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
         </>:""}
@@ -62,40 +73,38 @@ render(){
         {this.state.timeArr.length===1 ?<>
         {this.state.timeArr.map(obj=>{
             return(<tr className="table-light">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>{obj.firstName} {obj.lastName}</td>
             </tr>)
         })}
         <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
             <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
         </>:""}
         {this.state.timeArr.length===0 ?<>
         
         <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
             <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
             <tr className="table-success">
-                <td>Time</td>
+                <td>{this.state.timeNow}</td>
                 <td>Empty Slot</td>
             </tr>
         </>:""}
         </>
         :
         ""}
-        </tbody>   
-        </table>
-        </div>
+        
         </>
     )
 }

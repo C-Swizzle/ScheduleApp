@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import moment from "moment";
 import API from "../../utils/API";
 import Schedule from "./Schedule";
+import FullDay from "./FullDay";
 class PermSchedule extends Component{
 state={
 tutors:[],
@@ -49,39 +50,43 @@ render() {
 
 return(<>
 <div className="container">
-{this.state.tutorSelected ? this.state.tutorSelected.firstName : "No tutor selected"}
+{this.state.tutorSelected ? "" : <>No tutor selected
 <ul>
 {this.state.tutors.map(obj=>{
 return(<a href="" onClick={(e)=>{e.preventDefault(); this.handleOnClick(obj._id)}}><li>{obj.firstName + " " + obj.lastName }</li></a>);
     })
     }
 </ul>
-
-
+</>
+}
 </div>
 <div className="row">
 <div className="col-md-6">{this.state.tutorSelected ?
-<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="1" /> 
+<FullDay tutorId={this.state.tutorSelected._id} tutorFirstName={this.state.tutorSelected.firstName} dayString="Monday" /> 
 : ""
 
 }</div>
 <div className="col-md-6">{this.state.tutorSelected ?
-<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="2" /> 
+    <FullDay tutorId={this.state.tutorSelected._id} tutorFirstName={this.state.tutorSelected.firstName} dayString="Tuesday" /> 
+
 : ""
 
 }</div>
 <div className="col-md-6">{this.state.tutorSelected ?
-<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="3" /> 
+    <FullDay tutorId={this.state.tutorSelected._id} tutorFirstName={this.state.tutorSelected.firstName} dayString="Wednesday" /> 
+
 : ""
 
 }</div>
 <div className="col-md-6">{this.state.tutorSelected ?
-<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="4" /> 
+    <FullDay tutorId={this.state.tutorSelected._id} tutorFirstName={this.state.tutorSelected.firstName} dayString="Thursday" /> 
+
 : ""
 
 }</div>
 <div className="col-md-6">{this.state.tutorSelected ?
-<Schedule tutor={this.state.tutorSelected.firstName} dayInteger="5" /> 
+    <FullDay tutorId={this.state.tutorSelected._id} tutorFirstName={this.state.tutorSelected.firstName} dayString="Friday" /> 
+
 : ""
 
 }</div>

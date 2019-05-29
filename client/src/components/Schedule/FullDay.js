@@ -1,26 +1,20 @@
 import React, {Component} from "react";
 import API from "../../utils/API";
+import HalfHour from "./HalfHour";
 class FullDay extends Component{
 state={
 scheduleObj:null
 }
 
 componentDidMount=()=>{
-API.getFullDay("5cedea5d4869e4199c4759cf","Tuesday")
-.then(response=>{
-    console.log(response.data)
-    this.setState({
-        scheduleObj:response.data
-    })
-})
-}
-iterateOverTime = arr => {
 
 }
+
 render(){
     return(
         <>
         <div className="container">
+            <h1 className="display-4">{this.props.dayString&&this.props.tutorFirstName?<>{this.props.dayString} / {this.props.tutorFirstName}</>:""}</h1>
         <table className="table table-bordered table-hover">
   <thead>
     <tr>
@@ -30,28 +24,20 @@ render(){
     </tr>
   </thead>
                     <tbody>
-
-                        {this.state.scheduleObj ?
-                            <>
-                                {this.state.scheduleObj.oneThirty.map(obj => {
-                                    return (
-                                        <tr>
-                                            <td>
-                                                1:30
-                                            </td>
-                                            <td>
-                                                {obj.firstName} {obj.lastName}
-                                            </td>
-                                            <td>
-
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                            </>
-                            :
-                            ""
-                        }
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="oneThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="twoClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="twoThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="threeClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="threeThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="fourClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="fourThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="fiveClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="fiveThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="sixClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="sixThirty"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="sevenClock"/><br/>
+                    <HalfHour tutorId={this.props.tutorId} dayString={this.props.dayString} timeString="sevenThirty"/><br/>
+                        
                     </tbody>
       </table>
       </div>

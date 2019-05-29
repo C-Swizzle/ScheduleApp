@@ -48,7 +48,7 @@ app.post("/api/students/checkin/:id",function(req,res){
 });
 
 app.post("/api/tutors",function(req,res){
-  createTutorObj(req.body.firstName,req.body.lastName)
+  createTutorObj(req.body.firstName,req.body.lastName,resp=>{res.json(resp)})
 });
 
 app.get("/api/tutors",function(req,res){
@@ -105,7 +105,7 @@ createSevenDays(response=>
     
   })
 }
-function createTutorObj(firstName,lastName){
+function createTutorObj(firstName,lastName,cb){
   createScheduleObj(schedId=>{
 db.Tutor.create({
 firstName:firstName,
@@ -114,9 +114,9 @@ permSchedule:schedId
 })
 .then(function(response){
   db.Tutor.findOne({_id:response._id})
-  .populate({path:"permSchedule",populate:{path:"Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
+  // .populate({path:"permSchedule",populate:{path:"Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
   .then(function(response2){
-    console.log(response2)
+    cb(response2)
   })
 })
 })

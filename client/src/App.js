@@ -7,6 +7,8 @@ import PermSchedule from "./components/Schedule/PermSchedule";
 import TutorCreate from "./components/Forms/TutorCreate";
 import StudentCreate from "./components/Forms/StudentCreate";
 import EditStudentSchedule from "./components/Forms/EditStudentSchedule";
+import FullDay from "./components/Schedule/FullDay";
+import HalfHour from "./components/Schedule/HalfHour";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
           <Route exact path="/tutorcreate" component={TutorCreate} />
           <Route exact path="/studentcreate" component={StudentCreate} />
           <Route exact path="/editschedule" component={EditStudentSchedule} />
+          <Route exact path="/fullday" component={FullDay} />
+          <Route exact path="/halfhour" component={HalfHour} />
+
           <Route component={NoMatch} />
         </Switch>
       </div>

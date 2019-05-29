@@ -48,47 +48,122 @@ app.post("/api/students/checkin/:id",function(req,res){
 });
 
 app.post("/api/tutors",function(req,res){
-  
-db.Tutor.create(req.body).then(function(response){console.log(response); res.json(response)})
+  createTutorObj(req.body.firstName,req.body.lastName)
 });
+
 app.get("/api/tutors",function(req,res){
   db.Tutor.find().then(function(response){
     res.json(response);
   })
 });
-function createOneDay(){
-db.scheduleDay.create({
-  oneThirty:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
-twoClock:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
-twoThirty:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
-threeClock:[mongodb.ObjectId("5ce9d3fbf5ac0606540010ab")],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-}).then(function(response){
-  db.scheduleObj.findOneAndUpdate(
-    { _id:mongodb.ObjectId("5cec9f3f4cdee12890314b0f")}
-  ,{Sunday:response._id}).then(function(response){
-    console.log(response)
+function createSevenDays(cb){
+  const arrayOfIds=[];
+  for(let i=0;i<7;i++){
+  db.scheduleDay.create({
+    oneThirty:[],
+    twoClock:[],
+    twoThirty:[],
+    threeClock:[],
+    threeThirty:[],
+    fourClock:[],
+    fourThirty:[],
+    fiveClock:[],
+    fiveThirty:[],
+    sixClock:[],
+    sixThirty:[],
+    sevenClock:[],
+    }).then(function(response){
+      arrayOfIds.push(response._id)
+      if(arrayOfIds.length===7){
+        cb(arrayOfIds)
+      }
+    })
+  }
+}
+function createScheduleObj(cb){
+createSevenDays(response=>
+  {
+    // const daysOfWeek=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    
+      db.scheduleObj.create({
+        Sunday:response[0],
+        Monday:response[1],
+        Tuesday:response[2],
+        Wednesday:response[3],
+        Thursday:response[4],
+        Friday:response[5],
+        Saturday:response[6]
+      })
+      .then(function(response2){
+        // console.log(response2)
+        db.scheduleObj.findOne({_id:response2._id})
+        .populate("Sunday Monday Tuesday Wednesday Thursday Friday Saturday")
+        .then(function(response3){
+          cb(response3._id)
+        })
+      })
+    
+  })
+}
+function createTutorObj(firstName,lastName){
+  createScheduleObj(schedId=>{
+db.Tutor.create({
+firstName:firstName,
+lastName:lastName,
+permSchedule:schedId
+})
+.then(function(response){
+  db.Tutor.findOne({_id:response._id})
+  .populate({path:"permSchedule",populate:{path:"Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
+  .then(function(response2){
+    console.log(response2)
   })
 })
-}
-// createOneDay()
-
-db.scheduleObj.find()
-.populate({path:"Sunday",model:"scheduleDay",
-  populate:{path:"twoClock oneThirty",model:"Student"},
-  // populate:{path:"oneThirty",model:"Student"}
-
 })
-.exec((err,posts)=>{
-  const length=posts.length
-  console.log(posts[1].Sunday.oneThirty)
+}
+// createScheduleObj()
+// createTutorObj("cee222","mack222")
+// createOneDay()
+app.post("/",function(req,res){
+
+  db.scheduleObj.find()
+  .populate({path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",model:"scheduleDay",
+    populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty",model:"Student"},
+    // populate:{path:"oneThirty",model:"Student"}
+  
+  })
+  .exec((err,posts)=>{
+    const length=posts.length
+    console.log(posts)
+    res.json(posts)
+  })
+
+});
+app.post("/test",function(req,res){
+  db.Tutor.find()
+  .populate({path:"permSchedule",populate:{path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
+  
+  .then(function(response){
+    console.log(response)
+    res.json(response)
+  })
+})
+
+app.get("/api/tutors/schedule/:tutorId/:day",function(req,res){
+
+    db.Tutor.findOne({_id:req.params.tutorId})
+  .populate({path:"permSchedule",populate:{path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
+.then(function(response){
+  console.log(response[req.params.day.toString()])
+  res.json(response.permSchedule[req.params.day])
+})
+})
+app.get("/api/tutors/schedule/:tutorId/:day/:timeslot",function(req,res){
+db.Tutor.findOne({_id:req.params.tutorId})
+.populate({path:"permSchedule",populate:{path:req.params.day,populate:{path:req.params.timeslot}}})
+.then(function(response){
+  res.json(response.permSchedule[req.params.day][req.params.timeslot])
+})
 })
 // db.scheduleDay.find()
 // .populate({path:"oneThirty",model:"Student"})
@@ -124,105 +199,7 @@ app.delete("/api/students/schedule/:studentId/:scheduleId",function(req,res){
     res.json(response);
   })
 })
-var tutorObj={
-  firstName:"test",
-  lastName:"annoying",
-  permanentSchedule:
-    {Sunday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Monday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Tuesday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Wednesday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Thursday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Friday:{oneThirty:[],
-twoClock:[],
-twoThirty:[],
-threeClock:[],
-threeThirty:[],
-fourClock:[],
-fourThirty:[],
-fiveClock:[],
-fiveThirty:[],
-sixClock:[],
-sixThirty:[],
-sevenClock:[],
-sevenThirty:[],},
-    Saturday:{oneThirty:[],
-      twoClock:[],
-      twoThirty:[],
-      threeClock:[],
-      threeThirty:[],
-      fourClock:[],
-      fourThirty:[],
-      fiveClock:[],
-      fiveThirty:[],
-      sixClock:[],
-      sixThirty:[],
-      sevenClock:[],
-      sevenThirty:[],
-    }
-  }
-  
-}
+
 
 // db.Student.create({
 //   firstName:"something",

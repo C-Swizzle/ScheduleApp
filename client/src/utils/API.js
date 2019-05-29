@@ -38,5 +38,11 @@ export default {
   },
   deleteOneTimeSlot:function(studentId,scheduleId){
     return axios.delete("/api/students/schedule/"+studentId+"/"+scheduleId)
+  },
+  getHalfHourSlot:function(tutorId,dayString,timeString){
+    return axios.get(`/api/tutors/schedule/${tutorId}/${dayString}/${timeString}`)
+  },
+  getFullDay:function(tutorId,dayString){
+    return axios.get(`/api/tutors/schedule/${tutorId}/${dayString}`)
   }
 };

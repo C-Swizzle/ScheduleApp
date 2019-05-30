@@ -70,8 +70,9 @@ app.post("/api/students/checkin/:id",function(req,res){
       if(response100.checkedInArray.length>0){
         console.log(response100.checkedInArray[response100.checkedInArray.length-1])
       const lastCheckIn=moment(response100.checkedInArray[response100.checkedInArray.length-1].dateCheckedIn)
+      const lastDayString=response100.checkedInArray[response100.checkedInArray.length-1].dayString
       // console.log("last:"+lastCheckIn)
-      if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))){
+      if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===req.body.dayString){
         res.status(400)
         console.log("same day")
       } else{

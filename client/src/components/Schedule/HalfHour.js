@@ -28,7 +28,7 @@ API.getHalfHourSlot(this.props.tutorId||"5cedea5d4869e4199c4759cf",this.props.da
 .then(response=>{
 const myTime=this.props.timeString;
 const myTimeToSend=this.state.relationalObject[myTime];
-console.log(response)
+// console.log(response)
     this.setState({
         timeArr:response.data,
         timeNow:myTimeToSend

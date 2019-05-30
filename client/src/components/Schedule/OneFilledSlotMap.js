@@ -1,7 +1,25 @@
 import React, {Component} from "react";
 import API from "../../utils/API";
+import moment from "moment";
 class OneFilledSlot extends Component{
 state={
+    alreadyCheckedInArr:[]
+}
+componentDidMount=()=>{
+ console.log(this.props.timeArr)   
+
+for(let i=0;i<this.props.timeArr.length;i++){
+  console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
+  const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn);
+  if(lastTimeCheckedIn.startOf("day").isSame(moment().startOf("day"))&&this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString===this.props.dayString){
+      console.log("already checked in!")
+      console.log([this.props.timeArr[i]._id])
+      this.setState({
+          alreadyCheckedInArr:this.state.alreadyCheckedInArr.concat([this.props.timeArr[i]._id])
+      })
+  }
+}
+setTimeout(()=>console.log(this.state.alreadyCheckedInArr),5000)
 
 }
 handlePersonRemove=studentId=>{
@@ -38,9 +56,14 @@ handleCheckIn=studentId=>{
                                     <td>{this.props.timeNow}</td>
                                     <td>{obj.firstName} {obj.lastName}</td>
                                     <td>
+                                        {this.state.alreadyCheckedInArr.indexOf(obj._id.toString())!==-1 ? <div className="text-success">Checked In</div>
+                                        :
+                                        <>
                                         <button className="btn btn-success" onClick={()=>this.handleCheckIn(obj._id)}><i class="fa fa-check" aria-hidden="true"></i></button>
                                         <button className="btn btn-danger text-light ml-2">NS</button>
                                         <button className="btn btn-light ml-2 border border-primary">Out Today</button>
+                                        </>
+                                        }
                                         <button className="btn btn-primary ml-2" onClick={()=>this.handlePersonRemove(obj._id)}>Remove from Timeslot</button>
                                     </td>
                 </tr>)

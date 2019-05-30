@@ -73,13 +73,24 @@ app.post("/api/students/checkin/:id",function(req,res){
       // console.log("last:"+lastCheckIn)
       if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))){
         res.status(400)
+        console.log("same day")
       } else{
+        console.log("making check in happen")
         db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
         .then(function(response2){
           // console.log(response2)
           res.json(response2)
         })
       }
+
+      } else{
+        console.log("making check in happen 2")
+
+        db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+        .then(function(response2){
+          // console.log(response2)
+          res.json(response2)
+        })
 
       }
 

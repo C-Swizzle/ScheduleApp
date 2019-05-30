@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
 const mongodb=require("mongodb");
-
+const moment=require("moment");
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,13 +38,61 @@ app.post("/api/search/students",function(req,res){
   })
 })
 
+
 app.post("/api/students/checkin/:id",function(req,res){
-  req.body.date = new Date();
-  db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:req.body}})
+
+  db.scheduleDay.findOne({_id:req.body.scheduleDayId})
   .then(function(response){
-    console.log("this has happened");
-    res.status(200);
+    console.log(response)
+    const timeArr=["oneThirty","twoClock","twoThirty","threeClock","threeThirty","fourClock","fourThirty","fiveClock","fiveThirty","sixClock","sixThirty","sevenClock","sevenThirty"];
+    var count=0;
+    const timeStudentWasHere=[]
+    for(let i=0;i<timeArr.length;i++){
+      for (let k=0;k<response[timeArr[i]].length;k++){
+        console.log(response[timeArr[i]][k])
+        if(response[timeArr[i]][k].toString()===req.params.id){
+          count++;
+          timeStudentWasHere.push(timeArr[i])
+        }
+      }
+    }
+    console.log(count)
+    console.log(timeStudentWasHere)
+    checkedInObject={
+      dateCheckedIn:moment().format(),
+      tutorId:req.params.tutorId,
+      checkedIn:1,
+      sessionTimes:timeStudentWasHere,
+      dayString:req.body.dayString
+    }
+    db.Student.findOne({_id:req.params.id})
+    .then(function(response100){
+      if(response100.checkedInArray.length>0){
+        console.log(response100.checkedInArray[response100.checkedInArray.length-1])
+      const lastCheckIn=moment(response100.checkedInArray[response100.checkedInArray.length-1].dateCheckedIn)
+      // console.log("last:"+lastCheckIn)
+      if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))){
+        res.status(400)
+      } else{
+        db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+        .then(function(response2){
+          // console.log(response2)
+          res.json(response2)
+        })
+      }
+
+      }
+
+      
+    })
+    
   })
+
+  // db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:req.body}})
+  // .then(function(response){
+  //   console.log("this has happened");
+  //   res.status(200);
+  // })
 });
 
 app.post("/api/tutors",function(req,res){
@@ -217,6 +265,17 @@ app.post("/api/tutors/addtoschedule",function(req,res){
     res.json(response)
   })
 })
+   
+    app.post("/api/tutors/takeoffschedule",function(req,res){
+      console.log("anythihng")
+      console.log(req)
+      db.scheduleDay.findByIdAndUpdate({_id:req.body.scheduleDayId},{$pull:{[req.body.timeString]:req.body.studentId}})
+      .then(function(response){
+        console.log("anything")
+        console.log(response)
+        res.json(response)
+      })
+    })
 
 // db.Student.create({
 //   firstName:"something",

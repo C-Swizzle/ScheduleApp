@@ -45,11 +45,14 @@ class OneEmptySlot extends React.Component{
         })
     }
     iterateThroughResponse = arr =>{
-        return(arr.map(obj=>{
+        return(<>{arr.map(obj=>{
             return(
-                <button onClick={()=>this.handlePersonClick(obj._id)}>{obj.firstName} {obj.lastName}</button>
+                <button className="btn btn-light border border-primary ml-2" onClick={()=>this.handlePersonClick(obj._id)}>{obj.firstName} {obj.lastName}</button>
             )
-        }))
+        })}
+        <button className="btn btn-danger border border-light ml-2" onClick={this.handleRowRefresh}><i class="fas fa-redo"></i></button>
+        </>
+        )
     };
     handleRowRefresh=()=>{
         this.setState({
@@ -65,14 +68,16 @@ class OneEmptySlot extends React.Component{
         <td>{this.props.timeNow}</td>
         {this.state.resReceivedBool ?
         <>
-        {this.state.noMatchesBool ? <td colspan="2">No Matches Found! Retry Search <button className="btn btn-light ml-2" onClick={this.handleRowRefresh}><i class="fas fa-redo"></i></button></td> :
+        {this.state.noMatchesBool ? 
+        <td colspan="2">No Matches Found! Retry Search <button className="btn btn-light ml-2" onClick={this.handleRowRefresh}><i class="fas fa-redo"></i></button></td> 
+        :
         <td colspan="2">{this.iterateThroughResponse(this.state.studentsReceived)}</td>
         }
         </> 
         : 
         <>
-        <td><input placeholder="First name" value={this.state.studentOne} onChange={this.handleChange} name="studentOne"></input></td>
-        <td><button className="btn btn-primary" onClick={()=>{this.handleSubmit(this.state.studentOne)}}>Add a student here</button></td>
+        <td colspan="2"><form><input placeholder="First name" value={this.state.studentOne} onChange={this.handleChange} name="studentOne"></input>
+        <button className="btn btn-primary ml-4" onClick={(event)=>{event.preventDefault(); this.handleSubmit(this.state.studentOne)}}>Add a student here</button></form></td>
         </>
         }
         </tr>

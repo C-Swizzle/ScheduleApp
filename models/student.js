@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const studentSchema = new Schema({
   firstName: {type:String, required:true},
   lastName: {type: String, required:true},
-  checkedInArray:[{date:Date,tutor:String,checkedIn:Boolean,noShow:Boolean, sessionHours:Number}]
+  checkedInArray:[{dateCheckedIn:Date,tutorId:{
+    type: Schema.Types.ObjectId,
+    ref: "Tutor"
+  },checkedIn:Boolean,noShow:Boolean, dayString:String,sessionTimes:Array}]
 
 });
 

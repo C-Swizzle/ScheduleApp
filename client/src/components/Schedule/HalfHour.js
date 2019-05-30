@@ -45,20 +45,20 @@ render(){
 
                     {this.state.timeArr.length > 3 ?
                         <>
-                            <OneFilledSlotMap tableType="danger" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+                            <OneFilledSlotMap tableType="danger" timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>
                         </> : ""}
                     {this.state.timeArr.length === 3 ? <>
-                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
 
                     </> : ""}
                     {this.state.timeArr.length === 2 ? <>
-                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
 
                         <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                     </> : ""}
 
                     {this.state.timeArr.length === 1 ? <>
-                        <OneFilledSlotMap tableType="light" timeNow={this.state.timeNow} timeArr={this.state.timeArr}/>
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
 
                         <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         

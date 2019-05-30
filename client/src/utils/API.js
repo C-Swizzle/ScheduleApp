@@ -18,7 +18,7 @@ export default {
     return axios.post("/api/books", bookData);
   },
 
-  checkIn: function(id,obj){
+  checkInStudent: function(id,obj){
     return axios.post("/api/students/checkin/"+id, obj);
   },
   getTutors: function(){
@@ -55,5 +55,14 @@ export default {
       timeString:timeString
     }
     return axios.post(`/api/tutors/addtoschedule`,objToSend)
+  },
+  removeScheduleSlot:function(scheduleId,studentId,timeString){
+    const objToSend={
+      scheduleDayId:scheduleId,
+      studentId:studentId,
+      timeString:timeString
+    }
+    console.log(objToSend)
+    return axios.post(`/api/tutors/takeoffschedule`,objToSend)
   }
 };

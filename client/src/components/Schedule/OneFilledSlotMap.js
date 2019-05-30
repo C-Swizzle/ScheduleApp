@@ -11,7 +11,8 @@ componentDidMount=()=>{
 for(let i=0;i<this.props.timeArr.length;i++){
   console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
   const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn);
-  if(lastTimeCheckedIn.startOf("day").isSame(moment().startOf("day"))&&this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString===this.props.dayString){
+  const lastDayString=this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString
+  if(lastTimeCheckedIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===this.props.dayString){
       console.log("already checked in!")
       console.log([this.props.timeArr[i]._id])
       this.setState({

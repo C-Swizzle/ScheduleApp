@@ -64,5 +64,8 @@ export default {
     }
     console.log(objToSend)
     return axios.post(`/api/tutors/takeoffschedule`,objToSend)
-  }
+  },
+  noShowStudent:function(id,obj){
+    return axios.post("/api/students/noshow/"+id, obj);
+  },
 };

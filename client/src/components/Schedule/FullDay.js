@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import API from "../../utils/API";
 import HalfHour from "./HalfHour";
+import moment from "moment";
 class FullDay extends Component{
 state={
 scheduleObj:null
 }
 
 componentDidMount=()=>{
-
+console.log("day"+moment().day())
 }
 
 render(){

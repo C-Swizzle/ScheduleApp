@@ -107,6 +107,67 @@ app.post("/api/students/checkin/:id",function(req,res){
   // })
 });
 
+
+app.post("/api/students/noshow/:id",function(req,res){
+
+  db.scheduleDay.findOne({_id:req.body.scheduleDayId})
+  .then(function(response){
+    console.log(response)
+    const timeArr=["oneThirty","twoClock","twoThirty","threeClock","threeThirty","fourClock","fourThirty","fiveClock","fiveThirty","sixClock","sixThirty","sevenClock","sevenThirty"];
+    var count=0;
+    const timeStudentWasHere=[]
+    for(let i=0;i<timeArr.length;i++){
+      for (let k=0;k<response[timeArr[i]].length;k++){
+        console.log(response[timeArr[i]][k])
+        if(response[timeArr[i]][k].toString()===req.params.id){
+          count++;
+          timeStudentWasHere.push(timeArr[i])
+        }
+      }
+    }
+    console.log(count)
+    console.log(timeStudentWasHere)
+    checkedInObject={
+      dateCheckedIn:moment().format(),
+      tutorId:req.params.tutorId,
+      checkedIn:0,
+      noShow:1,
+      sessionTimes:timeStudentWasHere,
+      dayString:req.body.dayString
+    }
+    db.Student.findOne({_id:req.params.id})
+    .then(function(response100){
+      if(response100.checkedInArray.length>0){
+        console.log(response100.checkedInArray[response100.checkedInArray.length-1])
+      const lastCheckIn=moment(response100.checkedInArray[response100.checkedInArray.length-1].dateCheckedIn)
+      const lastDayString=response100.checkedInArray[response100.checkedInArray.length-1].dayString
+      // console.log("last:"+lastCheckIn)
+      if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===req.body.dayString){
+        res.status(400)
+        console.log("same day")
+      } else{
+        console.log("making no show happen")
+        db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+        .then(function(response2){
+          // console.log(response2)
+          res.json(response2)
+        })
+      }
+
+      } else{
+        console.log("making no show happen 2")
+
+        db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+        .then(function(response2){
+          res.json(response2)
+        })
+
+      }
+    })
+  })
+});
+
+
 app.post("/api/tutors",function(req,res){
   createTutorObj(req.body.firstName,req.body.lastName,resp=>{res.json(resp)})
 });

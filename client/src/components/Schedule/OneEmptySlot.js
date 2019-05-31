@@ -40,7 +40,13 @@ class OneEmptySlot extends React.Component{
             const scheduleDayId=resp.data;
             API.newScheduleSlot(scheduleDayId,studentId,this.props.timeString)
             .then(resp2=>{
+                // console.log("this is where its comin from pippin")
                 console.log(resp2)
+                if(Number(resp2.status)<400){
+                    this.setState({
+                        studentSuccessfullyAdded:true
+                    })
+                }
             })
         })
     }
@@ -59,13 +65,15 @@ class OneEmptySlot extends React.Component{
             studentOne:"",
             resReceivedBool:false,
             noMatchesBool:false,
-            studentsReceived:null
+            studentsReceived:null,
+            studentAddedSuccessfully:false
         })
     }
    render(){
        return(
         <tr className="table-success">
         <td>{this.props.timeNow}</td>
+        {this.state.studentSuccessfullyAdded ? <td colSpan="2"><div>Student Has been added succesfully!</div></td> :<>
         {this.state.resReceivedBool ?
         <>
         {this.state.noMatchesBool ? 
@@ -77,7 +85,9 @@ class OneEmptySlot extends React.Component{
         : 
         <>
         <td colspan="2"><form><input placeholder="First name" value={this.state.studentOne} onChange={this.handleChange} name="studentOne"></input>
-        <button className="btn btn-primary ml-4" onClick={(event)=>{event.preventDefault(); this.handleSubmit(this.state.studentOne)}}>Add a student here</button></form></td>
+        <button className="btn btn-primary ml-4" onClick={(event)=>{event.preventDefault(); this.handleSubmit(this.state.studentOne)}}>Search by first name</button></form></td>
+        </>
+        }
         </>
         }
         </tr>

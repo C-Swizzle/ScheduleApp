@@ -68,4 +68,10 @@ export default {
   noShowStudent:function(id,obj){
     return axios.post("/api/students/noshow/"+id, obj);
   },
+  hourlyRequest:function(obj){
+    return axios.post("/api/tutors/hourly",obj)
+  },
+  getTutorIds:function(){
+    return axios.get("/api/tutors/allids")
+  }
 };

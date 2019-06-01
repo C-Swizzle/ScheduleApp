@@ -42,7 +42,6 @@ render(){
 
             {this.state.timeArr ?
                 <>
-
                     {this.state.timeArr.length > 3 ?
                         <>
                             <OneFilledSlotMap tableType="danger" timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>

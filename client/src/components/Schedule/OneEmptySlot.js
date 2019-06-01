@@ -84,7 +84,7 @@ class OneEmptySlot extends React.Component{
         </> 
         : 
         <>
-        <td colspan="2"><form><input placeholder="First name" value={this.state.studentOne} onChange={this.handleChange} name="studentOne"></input>
+        <td colspan="2"><form><input placeholder="Empty Slot" value={this.state.studentOne} onChange={this.handleChange} name="studentOne"></input>
         <button className="btn btn-primary ml-4" onClick={(event)=>{event.preventDefault(); this.handleSubmit(this.state.studentOne)}}>Search by first name</button></form></td>
         </>
         }

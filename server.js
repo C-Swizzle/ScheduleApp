@@ -367,7 +367,42 @@ app.post("/api/tutors/addtoschedule",function(req,res){
 // }
 // }).then(response => console.log(response));
 // Connect to the Mongo DB
+app.get("/api/tutors/allids",function(req,res){
+  db.Tutor.find()
+  .then(function(response){
+    const arrToSend=[]
+    for(var i=0;i<response.length;i++){
+      arrToSend.push({_id:response[i]._id,firstName:response[i].firstName,lastName:response[i].lastName})
+    }
+    res.json(arrToSend)
+  })
+})
 
+app.post("/api/tutors/hourly",function(req,res){
+  console.log(req.body.slotOne)
+  const arrayOfSlots=[req.body.slotOne,req.body.slotTwo,req.body.slotThree];
+  console.log(arrayOfSlots)
+  const timePath=arrayOfSlots.join(" ");
+  console.log(timePath)
+  db.Tutor.find()
+.populate({path:"permSchedule",populate:{path:req.body.dayString,populate:{path:timePath}}})
+  .then(function(response){
+    // console.log(response)
+    // console.log(response.length)
+    const arrToSendBack=[]
+    for(var i=0;i<response.length;i++){
+      arrToSendBack.push({
+        tutorId:response[i]._id,
+        dayString:req.body.dayString,
+        slotOneArr:response[i].permSchedule[req.body.dayString][req.body.slotOne],
+        slotTwoArr:response[i].permSchedule[req.body.dayString][req.body.slotTwo],
+        slotThreeArr:response[i].permSchedule[req.body.dayString][req.body.slotThree],
+      })
+      console.log(arrToSendBack)
+    }
+    res.json(arrToSendBack);
+  })
+})
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scheduleapp",{useNewUrlParser:true});
 

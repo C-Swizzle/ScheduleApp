@@ -17,7 +17,7 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Schedule} />
+          <Route exact path="/" component={HourlySchedule} />
          
           <Route exact path="/permschedule" component={PermSchedule} />
           <Route exact path="/tutorcreate" component={TutorCreate} />

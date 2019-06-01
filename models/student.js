@@ -7,8 +7,7 @@ const studentSchema = new Schema({
   checkedInArray:[{dateCheckedIn:Date,tutorId:{
     type: Schema.Types.ObjectId,
     ref: "Tutor"
-  },checkedIn:Boolean,noShow:Boolean, dayString:String,sessionTimes:Array}]
-
+  },checkedIn:Boolean,noShow:Boolean, dayString:String,sessionTimes:Array,hasBeenLogged:{type:Boolean,default:false}}]
 });
 
 const Student = mongoose.model("Student",studentSchema);

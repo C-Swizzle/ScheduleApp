@@ -13,7 +13,9 @@ router.post("/api/students",function(req,res){
     console.log(req.body);
     db.Student.create(req.body).then(resp=>res.json(resp))
   });
-  
+  router.post("/api/newstudent",function(req,res){
+    db.Student.create(req.body).then(resp=>res.json(resp))
+  })
   router.get("/api/students",function(req,res){
     console.log("req received")
     db.Student.find()

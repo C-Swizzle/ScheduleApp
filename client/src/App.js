@@ -10,6 +10,7 @@ import EditStudentSchedule from "./components/Forms/EditStudentSchedule";
 import FullDay from "./components/Schedule/FullDay";
 import HalfHour from "./components/Schedule/HalfHour";
 import HourlySchedule from "./components/Schedule/HourlySchedule";
+import Students from "./components/Schedule/Students";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route exact path="/fullday" component={FullDay} />
           <Route exact path="/halfhour" component={HalfHour} />
           <Route exact path="/hourly" component={HourlySchedule} />
-
+          <Route exact path="/studentlist" component={Students} />
           <Route component={NoMatch} />
         </Switch>
       </div>

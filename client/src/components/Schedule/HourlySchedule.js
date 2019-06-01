@@ -244,7 +244,9 @@ render(){
 </div>
 
 <div className="col-md-4">
+{this.state.pastHalfHourString ? <>
     {this.state.tutorIdArr ? <>
+    
     {this.state.tutorIdArr.map(obj=>{
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
@@ -255,10 +257,15 @@ render(){
         <br></br>
         </>)
     })}
-    </>:<></>}
+    </>
+    :
+    <></>}
+    </> :<div className="text-danger">No schedule here!</div>}
 </div>
 <div className="col-md-4">
+{this.state.currentHalfHourString ? <>
     {this.state.tutorIdArr ? <>
+    
     {this.state.tutorIdArr.map(obj=>{
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
@@ -269,9 +276,14 @@ render(){
         <br></br>
         </>)
     })}
-    </>:<></>}
+    </>
+    :
+    <></>}
+    </> :<div className="text-danger">No schedule here!</div>}
 </div><div className="col-md-4">
+    {this.state.futureHalfHourString ? <>
     {this.state.tutorIdArr ? <>
+    
     {this.state.tutorIdArr.map(obj=>{
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
@@ -282,7 +294,10 @@ render(){
         <br></br>
         </>)
     })}
-    </>:<></>}
+    </>
+    :
+    <></>}
+    </> :<div className="text-danger">No schedule here!</div>}
 </div>
         </div>
         

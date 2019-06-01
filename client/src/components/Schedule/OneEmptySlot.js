@@ -42,6 +42,8 @@ class OneEmptySlot extends React.Component{
             .then(resp2=>{
                 // console.log("this is where its comin from pippin")
                 console.log(resp2)
+                this.props.refresh()
+
                 if(Number(resp2.status)<400){
                     this.setState({
                         studentSuccessfullyAdded:true

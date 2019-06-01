@@ -37,6 +37,7 @@ handlePersonRemove=studentId=>{
             console.log("the goonz")
             console.log(response)
             if(response.status<400){
+                this.props.refresh()
                 this.setState({
                     studentTakenOff:true
                 })
@@ -52,6 +53,7 @@ handleNoShow=studentId=>{
         console.log(scheduleDayId);
         API.noShowStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString})
         .then(resp2=>{
+            this.props.refresh()
 
         })
     })
@@ -64,6 +66,7 @@ handleCheckIn=studentId=>{
         console.log(scheduleDayId);
         API.checkInStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString})
         .then(resp2=>{
+            this.props.refresh()
 
         })
     })

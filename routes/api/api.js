@@ -256,7 +256,15 @@ router.post("/api/students",function(req,res){
   // });
   router.post("/test",function(req,res){
     db.Tutor.find()
-    .populate({path:"permSchedule",populate:{path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",populate:{path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"}}})
+      .populate({path:"permSchedule",  //first level of population
+        populate:{
+          path:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday",  //second level of population
+            populate:{
+              path:"oneThirty twoClock twoThirty threeClock threeThirty fourClock fourThirty fiveClock fiveThirty sixClock sixThirty sevenClock sevenThirty"
+              //third level of population 
+            }
+        }
+      })
     
     .then(function(response){
       console.log(response)

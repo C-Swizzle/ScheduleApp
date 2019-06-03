@@ -4,7 +4,9 @@ import API from "../../utils/API";
 class Students extends Component {
     state={
         students:[],
-        sortedStudents:[]
+        sortedStudents:[],
+        studentSelected:null,
+        studentSelectedBool:false
     }
 
     callAPI=()=>{
@@ -56,13 +58,39 @@ class Students extends Component {
         for(var i=0;i<this.state.students.length;i++){
             if(this.state.students[i]._id.toString()===studentId.toString()){
                 console.log(this.state.students[i])
+                this.setState({
+                    studentSelectedBool:true,
+                    studentSelected:this.state.students[i]
+                })
             }
         }
     }
     render(){
         return(
             <>
+            {this.state.studentSelected ? 
+            <> 
             <div className="container">
+            <h1>{this.state.studentSelected.firstName} {this.state.studentSelected.lastName}</h1>
+            </div>
+            
+            {this.state.studentSelected.checkedInArray.length > 0 ? 
+            <div className="container">
+            {this.state.studentSelected.checkedInArray.map(obj=>{
+                return <div>{obj.dayString}</div>
+
+            })}
+            </div>
+            : 
+
+            <>No check ins recorded</>}
+            
+            
+            </>
+            :
+            <>
+            <div className="container">
+                
             <form>
              <div className="form-group">
     <label for="sort-order">How To Sort Students</label>
@@ -85,6 +113,7 @@ class Students extends Component {
   :
   <></>}
   </div>
+            </>}
             </>
         )
     }

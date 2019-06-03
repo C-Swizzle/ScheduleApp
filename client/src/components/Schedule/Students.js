@@ -77,7 +77,10 @@ class Students extends Component {
             {this.state.studentSelected.checkedInArray.length > 0 ? 
             <div className="container">
             {this.state.studentSelected.checkedInArray.map(obj=>{
-                return <div>{obj.dayString}</div>
+                return <div>
+                {obj.dayString}
+                {obj.hasBeenLogged ? <button className="btn btn-success" ><i class="fa fa-check" aria-hidden="true"></i></button>:<button className="btn btn-danger" ><i class="fa fa-close"></i></button>}
+                </div>
 
             })}
             </div>

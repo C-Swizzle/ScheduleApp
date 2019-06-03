@@ -8,22 +8,28 @@ state={
 }
 componentDidMount=()=>{
  console.log(this.props.timeArr)   
+ const alreadyCheckedInArr=[];
+
 for(let i=0;i<this.props.timeArr.length;i++){
 if(this.props.timeArr[i].checkedInArray.length>0){
 
   console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
   const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn);
-  const lastDayString=this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString
+  const lastDayString=this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString;
   if(lastTimeCheckedIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===this.props.dayString){
       console.log("already checked in!")
       console.log([this.props.timeArr[i]._id])
-      this.setState({
-          alreadyCheckedInArr:this.state.alreadyCheckedInArr.concat([this.props.timeArr[i]._id])
-      })
+    alreadyCheckedInArr.push(this.props.timeArr[i]._id.toString())
+      
+
   }
 }
 }
-setTimeout(()=>console.log(this.state.alreadyCheckedInArr),5000)
+this.setState({
+    alreadyCheckedInArr:alreadyCheckedInArr
+})
+
+setTimeout(()=>console.log("arr",this.state.alreadyCheckedInArr),5000)
 
 }
 handlePersonRemove=studentId=>{

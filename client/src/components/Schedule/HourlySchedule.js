@@ -14,7 +14,14 @@ state={
     timeBeingUsed:null,
     dayPickedString:null,
     daysOfWeek:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    tutorIdArr:null
+    tutorIdArr:null,
+    SundayDate:null,
+    MondayDate:null,
+    TuesdayDate:null,
+    WednesdayDate:null,
+    ThursdayDate:null,
+    FridayDate:null,
+    SaturdayDate:null
 }
 
 
@@ -36,6 +43,7 @@ componentDidMount=()=>{
             tutorIdArr:response.data
         })
     })
+    this.generateDayToDateMatching()
 }
 
 callAPI=()=>{
@@ -50,6 +58,28 @@ callAPI=()=>{
         })
     })
 }
+generateDayToDateMatching=()=>{
+    const date=moment()
+    for(var i=0;i<6;i++){
+        if(date.day()===0){
+            this.setState({
+                SundayDate:date,
+                MondayDate:date.add(1,"days"),
+                TuesdayDate:date,
+                WednesdayDate:date,
+                ThursdayDate:date,
+                FridayDate:date,
+                SaturdayDate:date
+            })
+        }else{
+        date.subtract(1,"day")
+        }
+        console.log(date.day())
+    
+    }
+    console.log(this.state)
+}
+
 
 generateTimeSlots=(momentObject)=>{
     const set=momentObject;
@@ -201,11 +231,11 @@ switch(str){
 }
 
 generateDayButtons=()=>{
-    const mapThis=this.state.daysOfWeek.filter(day=>day!=="Sunday"&&day!=="Saturday")
-    return(mapThis.map(day=>{
+    // const mapThis=this.state.daysOfWeek.filter(day=>day!=="Sunday"&&day!=="Saturday")
+    return(this.state.daysOfWeek.map(day=>{
         return(
             <>
-            <div className="col-md-2 text-center mb-4"><button className={`btn btn-${day===this.state.dayPickedString ? "primary":"secondary"} ${day===this.state.daysOfWeek[moment().day()] ? "w-100":""}`} name={day} onClick={this.setDayString}>{day===this.state.daysOfWeek[moment().day()] ? "(TODAY) ":""}{day}</button></div>
+            <div className="col-md-1 text-center mb-4"><button className={`btn btn-${day===this.state.dayPickedString ? "primary":"secondary"} ${day===this.state.daysOfWeek[moment().day()] ? "w-100":""}`} name={day} onClick={this.setDayString}>{day===this.state.daysOfWeek[moment().day()] ? "(TODAY) ":""}{day}</button></div>
             </>
         )
     })

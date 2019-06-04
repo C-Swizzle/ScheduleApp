@@ -87,6 +87,26 @@ generateDayToDateMatching=()=>{
     console.log(this.state)
 }
 
+changeWeek=(addOrSubtract)=>{
+    const MondayDate=this.state.MondayDate.clone()[addOrSubtract](7,"d");
+    const TuesdayDate=this.state.TuesdayDate.clone()[addOrSubtract](7,"d");
+    const WednesdayDate=this.state.WednesdayDate.clone()[addOrSubtract](7,"d");
+    const ThursdayDate=this.state.ThursdayDate.clone()[addOrSubtract](7,"d");
+    const FridayDate=this.state.FridayDate.clone()[addOrSubtract](7,"d");
+    const SaturdayDate=this.state.SaturdayDate.clone()[addOrSubtract](7,"d");
+    const SundayDate=this.state.SundayDate.clone()[addOrSubtract](7,"d");
+
+    this.setState({
+        MondayDate:MondayDate,
+        TuesdayDate:TuesdayDate,
+        WednesdayDate:WednesdayDate,
+        ThursdayDate:ThursdayDate,
+        FridayDate:FridayDate,
+        SaturdayDate:SaturdayDate,
+        SundayDate:SundayDate
+    })
+}
+
 
 generateTimeSlots=(momentObject)=>{
     const set=momentObject;
@@ -242,7 +262,8 @@ generateDayButtons=()=>{
     return(this.state.daysOfWeek.map(day=>{
         return(
             <>
-            <div className="col-md-1 text-center mb-4"><button className={`btn btn-${day===this.state.dayPickedString ? "primary":"secondary"} ${day===this.state.daysOfWeek[moment().day()] ? "w-100":""}`} name={day} onClick={this.setDayString}>{day===this.state.daysOfWeek[moment().day()] ? "(TODAY) ":""}{day}</button></div>
+            <div className="col-md-1 text-center mb-4"><button className={`btn btn-${day===this.state.dayPickedString ? "primary":"secondary"} ${day===this.state.daysOfWeek[moment().day()] ? "w-100":""}`} name={day} onClick={this.setDayString}>
+            {this.state[`${day}Date`] ? this.state[`${day}Date`].isSame(moment(),"day") ? "(TODAY) ":"" :""}{day} {this.state[`${day}Date`] ? this.state[`${day}Date`].format("MMMM Do") : ""}</button></div>
             </>
         )
     })
@@ -254,10 +275,17 @@ render(){
         <>
         
         <div className="row mt-2">
-        <div className="col-md-1 text-center mb-4"></div>
-            {this.generateDayButtons()}
-        <div className="col-md-1 text-center mb-4"></div><br/>
+            <div className="col-md-2 text-center">
+            <button className="btn btn-danger" onClick={()=>{this.changeWeek("subtract")}}><i class="fas fa-arrow-left"></i></button>
 
+            </div>
+        
+            {this.generateDayButtons()}
+        
+        <div className="col-md-2 text-center">
+            <button className="btn btn-danger" ><i class="fas fa-arrow-right" onClick={()=>{this.changeWeek("add")}}></i></button>
+
+            </div>
         <div className="col-md-4 text-center">
             <button className="btn btn-danger" onClick={this.goThirtyMinutesBack}><i class="fas fa-arrow-left"></i></button>
         <h1>

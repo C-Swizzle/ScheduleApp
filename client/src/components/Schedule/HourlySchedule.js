@@ -316,7 +316,7 @@ render(){
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
             <tbody>
-        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} timeString={this.state.pastHalfHourString} />
+        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} dayDate={this.state[`${this.state.dayPickedString}Date`]} timeString={this.state.pastHalfHourString} />
         </tbody>
         </table>
         <br></br>
@@ -335,7 +335,7 @@ render(){
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
             <tbody>
-        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} timeString={this.state.currentHalfHourString} />
+        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} dayDate={this.state[`${this.state.dayPickedString}Date`]} timeString={this.state.currentHalfHourString} />
         </tbody>
         </table>
         <br></br>
@@ -353,7 +353,7 @@ render(){
         return(<>   <h4>{obj.firstName} {obj.lastName}</h4>
         <table className="table table-sm table-hover">
             <tbody>
-        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} timeString={this.state.futureHalfHourString} />
+        <HalfHour tutorId={obj._id} dayString={this.state.dayPickedString} dayDate={this.state[`${this.state.dayPickedString}Date`]} timeString={this.state.futureHalfHourString} />
         </tbody>
         </table>
         <br></br>

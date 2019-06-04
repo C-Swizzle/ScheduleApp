@@ -14,7 +14,7 @@ for(let i=0;i<this.props.timeArr.length;i++){
 if(this.props.timeArr[i].checkedInArray.length>0){
 
   console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
-  const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn);
+  const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn,"MMMM Do YYYY");
   const lastDayString=this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString;
   if(lastTimeCheckedIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===this.props.dayString){
       console.log("already checked in!")
@@ -57,7 +57,7 @@ handleNoShow=studentId=>{
         console.log(resp)
         const scheduleDayId=resp.data;
         console.log(scheduleDayId);
-        API.noShowStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString})
+        API.noShowStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString,dayDate:this.props.dayDate})
         .then(resp2=>{
             this.props.refresh()
 
@@ -70,7 +70,7 @@ handleCheckIn=studentId=>{
         console.log(resp)
         const scheduleDayId=resp.data;
         console.log(scheduleDayId);
-        API.checkInStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString})
+        API.checkInStudent(studentId,{scheduleDayId:scheduleDayId,tutorId:this.props.tutorId,dayString:this.props.dayString,dayDate:this.props.dayDate})
         .then(resp2=>{
             this.props.refresh()
 

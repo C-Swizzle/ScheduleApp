@@ -34,7 +34,7 @@ router.post("/api/students",function(req,res){
   
   
   router.post("/api/students/checkin/:id",function(req,res){
-  
+    console.log(moment(req.body.dayDate).format("MMMM Do YYYY"))
     db.scheduleDay.findOne({_id:req.body.scheduleDayId})
     .then(function(response){
       console.log(response)
@@ -53,7 +53,7 @@ router.post("/api/students",function(req,res){
       console.log(count)
       console.log(timeStudentWasHere)
       checkedInObject={
-        dateCheckedIn:moment().format(),
+        dateCheckedIn:moment(req.body.dayDate).format("MMMM Do YYYY"),
         tutorId:req.params.tutorId,
         checkedIn:1,
         sessionTimes:timeStudentWasHere,
@@ -122,7 +122,7 @@ router.post("/api/students",function(req,res){
       console.log(count)
       console.log(timeStudentWasHere)
       checkedInObject={
-        dateCheckedIn:moment().format(),
+        dateCheckedIn:moment(req.body.dayDate).format("MMMM Do YYYY"),
         tutorId:req.params.tutorId,
         checkedIn:0,
         noShow:1,

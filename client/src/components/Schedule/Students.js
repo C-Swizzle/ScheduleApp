@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import API from "../../utils/API";
+import moment from "moment"
 
 class Students extends Component {
     state={
@@ -79,6 +80,8 @@ class Students extends Component {
             {this.state.studentSelected.checkedInArray.map(obj=>{
                 return <div>
                 {obj.dayString}
+                Hours used: {obj.sessionTimes.length*0.5}
+                {moment(obj.dateCheckedIn).format("MMMM Do YYYY")}
                 {obj.hasBeenLogged ? <button className="btn btn-success" ><i class="fa fa-check" aria-hidden="true"></i></button>:<button className="btn btn-danger" ><i class="fa fa-close"></i></button>}
                 </div>
 

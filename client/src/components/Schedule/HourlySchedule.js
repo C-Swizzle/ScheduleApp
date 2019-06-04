@@ -59,17 +59,24 @@ callAPI=()=>{
     })
 }
 generateDayToDateMatching=()=>{
-    const date=moment()
+    var date=moment()
     for(var i=0;i<6;i++){
         if(date.day()===0){
+            var SundayDate=date.clone();
+            var MondayDate=date.clone().add(1,"day");
+            var TuesdayDate=date.clone().add(2,"day");
+            var WednesdayDate=date.clone().add(3,"day");
+            var ThursdayDate=date.clone().add(4,"day");
+            var FridayDate=date.clone().add(5,"day");
+            var SaturdayDate=date.clone().add(6,"day")
             this.setState({
-                SundayDate:date,
-                MondayDate:date.add(1,"days"),
-                TuesdayDate:date,
-                WednesdayDate:date,
-                ThursdayDate:date,
-                FridayDate:date,
-                SaturdayDate:date
+                SundayDate:SundayDate,
+                MondayDate:MondayDate,
+                TuesdayDate:TuesdayDate,
+                WednesdayDate:WednesdayDate,
+                ThursdayDate:ThursdayDate,
+                FridayDate:FridayDate,
+                SaturdayDate:SaturdayDate
             })
         }else{
         date.subtract(1,"day")

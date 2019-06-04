@@ -74,7 +74,7 @@ router.post("/api/students",function(req,res){
           db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
           .then(function(response2){
             // console.log(response2)
-            res.json(response2)
+            res.json("anything")
           })
         }
   
@@ -84,7 +84,7 @@ router.post("/api/students",function(req,res){
           db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
           .then(function(response2){
             // console.log(response2)
-            res.json(response2)
+            res.json("anything")
           })
   
         }

@@ -62,21 +62,36 @@ router.post("/api/students",function(req,res){
       db.Student.findOne({_id:req.params.id})
       .then(function(response100){
         if(response100.checkedInArray.length>0){
+          var alreadyExists=false;
+          for (let index=0;index<response100.checkedInArray.length;index++){
+          const lastCheckIn=moment(response100.checkedInArray[index].dateCheckedIn)
+            if(lastCheckIn.startOf("day").isSame(moment(req.body.dayDate).startOf("day"))){
+              alreadyExists=true;
+            } 
+          }
+          if(!alreadyExists){
+            console.log("making check in hrouteren")
+            db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+            .then(function(response2){
+              // console.log(response2)
+              res.json("anything")
+            })
+          }
           console.log(response100.checkedInArray[response100.checkedInArray.length-1])
         const lastCheckIn=moment(response100.checkedInArray[response100.checkedInArray.length-1].dateCheckedIn)
         const lastDayString=response100.checkedInArray[response100.checkedInArray.length-1].dayString
         // console.log("last:"+lastCheckIn)
-        if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===req.body.dayString){
-          res.status(400)
-          console.log("same day")
-        } else{
-          console.log("making check in hrouteren")
-          db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
-          .then(function(response2){
-            // console.log(response2)
-            res.json("anything")
-          })
-        }
+        // if(lastCheckIn.startOf("day").isSame(moment().startOf("day"))&&lastDayString===req.body.dayString){
+        //   res.status(400)
+        //   console.log("same day")
+        // } else{
+        //   console.log("making check in hrouteren")
+        //   db.Student.findOneAndUpdate({_id:req.params.id},{$push:{checkedInArray:checkedInObject}})
+        //   .then(function(response2){
+        //     // console.log(response2)
+        //     res.json("anything")
+        //   })
+        // }
   
         } else{
           console.log("making check in hrouteren 2")

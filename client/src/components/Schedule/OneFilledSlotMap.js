@@ -35,7 +35,7 @@ setTimeout(()=>{this.setState({
 })
 },5000)
 
-setTimeout(()=>console.log("arr",this.state.alreadyCheckedInArr),5000)
+setTimeout(()=>console.log("arr",this.state.alreadyCheckedInArr),10000)
 
 }
 handlePersonRemove=studentId=>{

@@ -7,7 +7,8 @@ class Students extends Component {
         students:[],
         sortedStudents:[],
         studentSelected:null,
-        studentSelectedBool:false
+        studentSelectedBool:false,
+        unloggedHours:null
     }
 
     callAPI=()=>{
@@ -24,6 +25,7 @@ class Students extends Component {
     componentDidMount=()=>{
         this.callAPI()
     }
+    
 
     alphabetSort=(firstOrLastName)=>{
         const arrToSort=[];
@@ -59,9 +61,18 @@ class Students extends Component {
         for(var i=0;i<this.state.students.length;i++){
             if(this.state.students[i]._id.toString()===studentId.toString()){
                 console.log(this.state.students[i])
+                var unloggedHours=0;
+                var checkedInArr=this.state.students[i].checkedInArray;
+                for (var j=0;j<checkedInArr.length;j++){
+                    if(!checkedInArr[j].hasBeenLogged){
+                        var lengthOfHours=checkedInArr[j].sessionTimes.length*0.5;
+                        unloggedHours+=lengthOfHours;
+                    }
+                }
                 this.setState({
                     studentSelectedBool:true,
-                    studentSelected:this.state.students[i]
+                    studentSelected:this.state.students[i],
+                    unloggedHours:unloggedHours
                 })
             }
         }
@@ -73,19 +84,34 @@ class Students extends Component {
             <> 
             <div className="container">
             <h1>{this.state.studentSelected.firstName} {this.state.studentSelected.lastName}</h1>
+            {this.state.unloggedHours ? <h1 className="text-danger">Unlogged Hours: {this.state.unloggedHours} </h1>:<h1 className="text-successs">All hours logged</h1>}
             </div>
             
             {this.state.studentSelected.checkedInArray.length > 0 ? 
             <div className="container">
+                <table className="table table-hover">
+                <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Session Length</th>
+      <th scope="col">Logged</th>
+    </tr>
+  </thead>
             {this.state.studentSelected.checkedInArray.map(obj=>{
-                return <div>
-                {obj.dayString}
-                Hours used: {obj.sessionTimes.length*0.5}
+                return <tr>
+                <td>
                 {moment(obj.dateCheckedIn).format("MMMM Do YYYY")}
-                {obj.hasBeenLogged ? <button className="btn btn-success" ><i class="fa fa-check" aria-hidden="true"></i></button>:<button className="btn btn-danger" ><i class="fa fa-close"></i></button>}
-                </div>
+                </td>
+                <td>{obj.sessionTimes.length*0.5} hours</td>
+                <td>
+                {obj.hasBeenLogged ? <div className="text-success" >Logged</div>
+                :
+                <div className="text-danger" >Not Logged</div>}
+                </td>
+                </tr>
 
             })}
+            </table>
             </div>
             : 
 

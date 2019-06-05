@@ -18,7 +18,14 @@ componentDidMount = () => {
       <a className="navbar-brand text-center" href="/">
         Rocklin Tutoring Team Schedule App
       </a>
-      <a className="navbar-text text-dark" href="/permschedule">Perm Schedule</a>
+      <a className="navbar-text text-dark ml-4 font-weight-bold" href="/permschedule">Tutor Schedule</a>
+      <a className="navbar-text text-dark ml-4 font-weight-bold" href="/studentcreate">Create Student</a>
+      <a className="navbar-text text-dark ml-4 font-weight-bold" href="/tutorcreate">Create Tutor</a>
+      <a className="navbar-text text-dark ml-4 font-weight-bold" href="/studentlist">Student List</a>
+      <a className="navbar-text text-dark ml-4 font-weight-bold" href="/">Hourly Schedule</a>
+
+
+
       <div className="navbar-text text-dark ml-4">{this.state.timeNow}</div>
     </nav>
   );

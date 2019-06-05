@@ -50,33 +50,33 @@ render(){
                 <>
                     {this.state.timeArr.length > 3 ?
                         <>
-                            <OneFilledSlotMap tableType="danger" refresh={this.generateSlot} timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>
+                            <OneFilledSlotMap tableType="danger" refresh={this.generateSlot} timeNow={this.state.timeNow} timeArr={this.state.timeArr}  tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString}/>
                         </> : ""}
                     {this.state.timeArr.length === 3 ? <>
-                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot}  tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString}/>                       
 
                     </> : ""}
                     {this.state.timeArr.length === 2 ? <>
-                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot}  tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot}  tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString}/>                       
 
-                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                     </> : ""}
 
                     {this.state.timeArr.length === 1 ? <>
-                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString}/>                       
+                            <OneFilledSlotMap timeNow={this.state.timeNow} timeArr={this.state.timeArr} refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString}/>                       
 
-                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
-                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} refresh={this.generateSlot} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
                     </> : ""}
                     {this.state.timeArr.length === 0 ? <>
 
-                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
-                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
-                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
+                        <OneEmptySlot refresh={this.generateSlot} tutorId={this.props.tutorId} dayString={this.props.dayString} dayDate={this.props.dayDate} timeString={this.props.timeString} timeNow={this.state.timeNow}/>
                         
 
                     </> : ""}

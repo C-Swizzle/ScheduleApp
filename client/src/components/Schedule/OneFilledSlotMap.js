@@ -15,7 +15,7 @@ componentDidMount=()=>{
 for(let i=0;i<this.props.timeArr.length;i++){
 if(this.props.timeArr[i].checkedInArray.length>0){
 
-  console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
+//   console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
   for (let k=0;k<this.props.timeArr[i].checkedInArray.length;k++){
       console.log("count")
       const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[k].dateCheckedIn,"MMMM Do YYYY")
@@ -27,24 +27,13 @@ if(this.props.timeArr[i].checkedInArray.length>0){
               }
       }
   }
-//   const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn,"MMMM Do YYYY");
-//   const lastDayString=this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dayString;
-//   if(lastTimeCheckedIn.startOf("day").isSame(moment(this.props.dayDate).startOf("day"))&&lastDayString===this.props.dayString){
-//       console.log("already checked in!")
-//       console.log([this.props.timeArr[i]._id])
-//       if(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].checkedIn){
-//     alreadyCheckedInArr.push(this.props.timeArr[i]._id.toString())
-//       } else{
-//         noShowArr.push(this.props.timeArr[i]._id.toString())
-//       }
-
-//   }
 }
 }
-this.setState({
+setTimeout(()=>{this.setState({
     alreadyCheckedInArr:alreadyCheckedInArr,
     noShowArr:noShowArr
 })
+},5000)
 
 setTimeout(()=>console.log("arr",this.state.alreadyCheckedInArr),5000)
 

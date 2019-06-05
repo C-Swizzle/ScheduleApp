@@ -32,11 +32,11 @@ if(this.props.timeArr[i].checkedInArray.length>0){
   }
 }
 }
-setTimeout(()=>{this.setState({
+this.setState({
     alreadyCheckedInArr:alreadyCheckedInArr,
     noShowArr:noShowArr
 })
-},5000)
+
 
 setTimeout(()=>console.log("arr",this.state.alreadyCheckedInArr),10000)
 

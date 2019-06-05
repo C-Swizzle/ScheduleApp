@@ -53,7 +53,7 @@ router.post("/api/students",function(req,res){
       console.log(count)
       console.log(timeStudentWasHere)
       checkedInObject={
-        dateCheckedIn:moment(req.body.dayDate).format("MMMM Do YYYY"),
+        dateCheckedIn:moment(req.body.dayDate),
         tutorId:req.params.tutorId,
         checkedIn:1,
         sessionTimes:timeStudentWasHere,
@@ -122,7 +122,7 @@ router.post("/api/students",function(req,res){
       console.log(count)
       console.log(timeStudentWasHere)
       checkedInObject={
-        dateCheckedIn:moment(req.body.dayDate).format("MMMM Do YYYY"),
+        dateCheckedIn:moment(req.body.dayDate),
         tutorId:req.params.tutorId,
         checkedIn:0,
         noShow:1,

@@ -18,7 +18,7 @@ if(this.props.timeArr[i].checkedInArray.length>0){
 //   console.log(moment(this.props.timeArr[i].checkedInArray[this.props.timeArr[i].checkedInArray.length-1].dateCheckedIn))
   for (let k=0;k<this.props.timeArr[i].checkedInArray.length;k++){
       console.log("count")
-      const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[k].dateCheckedIn,"MMMM Do YYYY")
+      const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[k].dateCheckedIn)
       console.log("last",lastTimeCheckedIn);
       console.log("daydate",this.props.dayDate)
       if(lastTimeCheckedIn.startOf("day").isSame(moment(this.props.dayDate).startOf("day"))){

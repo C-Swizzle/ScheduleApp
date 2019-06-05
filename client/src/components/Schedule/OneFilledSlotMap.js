@@ -20,6 +20,7 @@ if(this.props.timeArr[i].checkedInArray.length>0){
       console.log("count")
       const lastTimeCheckedIn=moment(this.props.timeArr[i].checkedInArray[k].dateCheckedIn,"MMMM Do YYYY")
       if(lastTimeCheckedIn.startOf("day").isSame(moment(this.props.dayDate).startOf("day"))){
+          console.log("in if ")
         if(this.props.timeArr[i].checkedInArray[k].checkedIn){
             alreadyCheckedInArr.push(this.props.timeArr[i]._id.toString())
               } else{

@@ -70,7 +70,8 @@ generateDayToDateMatching=()=>{
                 ThursdayDate:date,
                 FridayDate:date,
                 SaturdayDate:date
-            })
+            });
+            break;
         }else{
         date.subtract(1,"day")
         }
